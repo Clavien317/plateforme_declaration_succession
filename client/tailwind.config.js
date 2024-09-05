@@ -3,10 +3,15 @@ const Config = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}", // Modifiez selon les extensions de fichiers que vous utilisez
   ],
-  theme: {
-    extend: {},
+  daisyui: {
+    themes: ["light"], // Choisir un autre thème comme "light" ou créer un thème personnalisé
   },
-  plugins: [],
+  theme:[
+    {
+      extend: {},
+    },
+  ],
+  plugins: [require('daisyui')],
 }
 
 export default Config

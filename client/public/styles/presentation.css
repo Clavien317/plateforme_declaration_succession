@@ -41,3 +41,161 @@
     background-color: black;
     transition: .6s;
 }
+
+.professionnel .container
+{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8vh;
+    background-color: rgb(11, 11, 110);
+    height: 60vh;
+}
+
+.professionnel .container .projet ,.experience ,.partenaire
+{
+    width: 25%;
+    color: white;
+    height: 40vh;
+    margin-left: 5%;
+    margin-bottom: 3vw;
+}
+
+.professionnel .container .projet .nbre,.experience .nbre ,.partenaire .nbre
+{
+    background-color: rgb(6, 10, 68);
+    color: white;
+    border-radius: 50%;
+    width: 23%;
+    height: 12vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -3vw;
+    border: 5px solid rgb(182, 180, 180);
+}
+
+.professionnel .container .projet h1,.experience h1 ,.partenaire h1
+{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.professionnel .container .projet p,.experience p ,.partenaire p
+{
+    text-align: start;
+}
+
+
+.talent
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: -5vw;
+    background-color: white;
+    padding: 1vw;
+    border-radius: 10px;
+}
+
+.talent .txt
+{
+    width: 50%;
+    color: black;
+}
+
+.talent .txt h1
+{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.talent .txt button
+{
+    width: 30%;
+    height: 3vw;
+    background-color: rgb(30, 57, 113);
+    color: white;
+    border-radius: 20px;
+    margin-top: 2vw;
+}
+
+.talent .image
+{
+    width: 50%;
+}
+
+.talent .image img
+{
+    height: 60vh;
+    width: 100%;
+}
+
+
+/* services */
+
+.service
+{
+    text-align: center;
+    width: 90%;
+    margin-left: 5%;
+    background-color: rgb(246, 246, 246);
+    padding: 1vw;
+    border-radius: 10px;
+    margin-top: 5vw;
+}
+
+.service h2
+{
+    font-size: 30px;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+}
+
+.service .p
+{
+    color: rgb(38, 35, 35);
+}
+
+.service .develop
+{
+    width: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    margin: 1.5%;
+    margin-top: 5vw;
+    border-radius: 10px;
+    height: 45vh;
+    background-color: rgb(11, 11, 110);
+    color: white;
+}
+
+.service .develop:hover
+{
+    background-color: rgb(4, 30, 61);
+    color: white;
+}
+
+.service .develop h1
+{
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.service .develop .nbre
+{
+    width: 18%;
+    background-color: rgb(4, 4, 67);
+    height: 10vh;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-top: -3vw;
+    margin-left: 40%;
+    border: 5px solid rgb(179, 179, 178);
+}

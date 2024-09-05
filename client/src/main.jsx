@@ -4,6 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import "../public/styles/auth.css"
 import "../public/styles/presentation.css"
+import "../public/styles/faq.css"
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

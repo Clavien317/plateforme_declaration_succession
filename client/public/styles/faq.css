@@ -1,0 +1,63 @@
+
+.faq
+{
+    margin-top: 10vh;
+}
+
+.line2
+{
+    margin-left: 5%;
+}
+
+.line2 hr
+{
+    width: 15%;
+    height: 3px;
+    background-color: black;
+}
+
+.faqs
+{
+    margin-left: 5%;
+    margin-top: 5vh;
+    color: black;
+}
+
+.faq .detail .container
+{
+    width: 58%;
+}
+
+.faq .detail .container .reponse
+{
+    margin-right: 10%;
+}
+
+.faq .detail
+{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-left: 3%;
+}
+
+.faq .detail .image4
+{
+    width: 39%;
+}
+
+.faq .detail .image4 img
+{
+    width: 100%;
+}
+
+.btn-faq
+{
+    width: 20%;
+    height: 3vw;
+    background-color: green;
+    color: white;
+    margin: 0;
+    margin-top: 1vh;
+    border: 0;
+}
