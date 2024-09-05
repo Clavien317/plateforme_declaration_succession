@@ -5,7 +5,7 @@ function DefaultLayout({ children }) {
   return (
     <div className="min-h-screen flex flex-col">
       <NavBar />
-      <main className="flex-grow">
+      <main className="flex-grow contenu">
         {children}
       </main>
     </div>

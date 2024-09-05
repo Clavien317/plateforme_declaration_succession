@@ -1,0 +1,43 @@
+
+
+.presentation .container 
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.presentation .container .image1
+{
+    width: 50%;
+    height: 60vh;
+}
+
+.presentation .container .txt1
+{
+    width: 50%;
+    height: 70vh;
+    align-items: center;
+}
+
+.presentation .container .txt1 p
+{
+    width: 80%;
+}
+
+.presentation .container .txt1 button
+{
+    width: 30%;
+    height: 6vh;
+    background-color: blue;
+    border: 0;
+    border-radius: 5px;
+    margin-top: 4vh;
+    color: white;
+}
+
+.presentation .container .txt1 button:hover
+{
+    background-color: black;
+    transition: .6s;
+}

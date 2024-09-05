@@ -3,6 +3,9 @@ import Accueil from './pages/Accueil';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Declaration from './pages/Declaration';
 import Assistant from './pages/Assistant';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import Faq from './pages/Faq';
 
 function App() {
   return (
@@ -11,6 +14,9 @@ function App() {
         <Route path="/" element={<Accueil />} />
         <Route path='/declaration' element={ <Declaration />} />
         <Route path='/assistant' element={<Assistant />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/faq' element={<Faq />} />
       </Routes>
     </Router>
   );
