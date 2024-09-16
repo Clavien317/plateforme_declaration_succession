@@ -13,8 +13,8 @@ function NavBar() {
             <li><a href="/" className="hover:text-gray-200">Accueil</a></li>
               {token.length !== 0? (
                 <>
-                  <li><a href="/declaration" className="hover:text-gray-200">Declaration</a></li>
-                  <li><a href="/profil" className="hover:text-gray-200">Profil</a></li>
+                  {/* <li><a href="/declaration" className="hover:text-gray-200">Declaration</a></li> */}
+                  <li><a href="/dashboard" className="hover:text-gray-200">Dashbord</a></li>
                 </>
               ):(
               <>
