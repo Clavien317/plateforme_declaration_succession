@@ -1,16 +1,6 @@
 import React, { useEffect } from 'react'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
 
 function Presentation() {
-
-    useEffect(() => {
-        AOS.init({
-          duration: 1000, 
-          easing: 'ease-in-out',
-        });
-      }, []);
 
   return (
     <div>
@@ -44,7 +34,7 @@ function Presentation() {
         <div className="professionnel">
             <div className="container">
 
-                <div className="projet" data-aos="zoom-in">
+                <div className="projet">
                     <div className='nbre'>+ 20</div>
                     <br />
                     <h1>Déclarations existant</h1>
@@ -56,7 +46,7 @@ function Presentation() {
                     </p>
                 </div>
 
-                <div className="projet" data-aos="zoom-in">
+                <div className="projet">
                     <div className='nbre'>+ 3 ans</div>
                     <br />
                     <h1>Experience</h1>
@@ -68,7 +58,7 @@ function Presentation() {
                     </p>
                 </div>
 
-                <div className="partenaire" data-aos="zoom-in">
+                <div className="partenaire">
                     <div className='nbre'>+ 100</div>
                     <br />
                     <h1>Nos utilisateurs</h1>
@@ -84,13 +74,13 @@ function Presentation() {
 
         <div className="talent">
             <div className="txt">
-            <h1 data-aos="zoom-in">
+            <h1>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Error numquam labore eligendi voluptatem hic exercitationem? Excepturi quod doloremque obcaecati,
                 voluptates, libero soluta corrupti repellat blanditiis atque fugiat nemo, quibusdam rem?
             </h1>
             <br />
-            <p data-aos="zoom-in">
+            <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi
                 amet tempore natus accusamus porro ratione praesentium aut
                 omnis veritatis et recusandae,exercitationem nesciunt rerum minus repellendus at ab. Similique.
@@ -99,7 +89,7 @@ function Presentation() {
                 omnis veritatis et recusandae,exercitationem nesciunt rerum minus repellendus at ab. Similique.
             </p> 
 
-            <button data-aos="zoom-in">Savoir plus</button>
+            <button>Savoir plus</button>
             </div>
             <div className="image">
                 <img src="/Full-Stack-Developer-1.webp" alt="" />
@@ -111,17 +101,17 @@ function Presentation() {
         <p  id='service'></p>
         <div className="service">
             <h2>Nos services</h2>
-            <p className='p' data-aos="zoom-in">
+            <p className='p'>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Nam necessitatibus quia
             </p>
 
             <div className="develop">
-                <div className='nbre' data-aos="zoom-in">1</div>
+                <div className='nbre'>1</div>
                 <br />
                 <h1>Developpement site web</h1>
                 <br />
-                <p data-aos="zoom-in">
+                <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi
                     amet tempore natus accusamus porro ratione praesentium aut
                     omnis veritatis et recusandae,exercitationem nesciunt rerum minus repellendus at ab. Similique.
@@ -131,9 +121,9 @@ function Presentation() {
             <div className="develop">
                 <div className='nbre'>2</div>
                 <br />
-                <h1 data-aos="zoom-in">Developpement logiciel</h1>
+                <h1>Developpement logiciel</h1>
                 <br />
-                <p data-aos="zoom-in">
+                <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi
                     amet tempore natus accusamus porro ratione praesentium aut
                     omnis veritatis et recusandae,exercitationem nesciunt rerum minus repellendus at ab. Similique.
@@ -143,9 +133,9 @@ function Presentation() {
             <div className="develop">
                 <div className='nbre'>3</div>
                 <br />
-                <h1 data-aos="zoom-in">Multimedia</h1>
+                <h1>Multimedia</h1>
                 <br />
-                <p data-aos="zoom-in">
+                <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi
                     amet tempore natus accusamus porro ratione praesentium aut
                     omnis veritatis et recusandae,exercitationem nesciunt rerum minus repellendus at ab. Similique.
