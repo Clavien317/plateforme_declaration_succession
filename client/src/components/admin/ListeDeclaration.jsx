@@ -38,27 +38,27 @@ export default function ProduitTable() {
     () => [
       {
         accessorKey: "design",
-        header: "Désignation",
+        header: "Numero de dossier",
         size: 150,
       },
       {
         accessorKey: "categorie",
-        header: "Catégorie",
+        header: "Description",
         size: 150,
       },
       {
-        accessorKey: "description",
-        header: "Description",
+        accessorKey: "etat",
+        header: "Etat",
         size: 200,
       },
       {
         accessorKey: "prix",
-        header: "Prix (Ar)",
+        header: " Droit de succession",
         size: 100,
       },
       {
         accessorKey: "quantite",
-        header: "Quantité dispo en kg",
+        header: " Defunt",
         size: 100,
       },
       {
