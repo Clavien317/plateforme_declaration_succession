@@ -8,6 +8,8 @@ import "../public/styles/faq.css"
 import "../public/styles/profil.css"
 import "../public/styles/header.css"
 import "../public/styles/admin.css"
+import "../public/styles/form.css"
+
 
 
 
