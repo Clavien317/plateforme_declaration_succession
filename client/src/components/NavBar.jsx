@@ -1,7 +1,7 @@
 import React from 'react';
 
 function NavBar() {
-  const token = "oiunhjknh";
+  const token = "dwdfew";
   return (
     <>
       <header className="shadow-lg fixed top-0 w-full z-50 bg-white">

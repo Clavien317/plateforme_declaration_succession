@@ -47,14 +47,14 @@
     display: flex;
     justify-content: space-between;
     margin-top: 8vh;
-    background-color: rgb(11, 11, 110);
+    background-color: rgb(202, 202, 208);
     height: 60vh;
 }
 
 .professionnel .container .projet ,.experience ,.partenaire
 {
     width: 25%;
-    color: white;
+    color: rgb(0, 0, 0);
     height: 40vh;
     margin-left: 5%;
     margin-bottom: 3vw;
@@ -169,8 +169,8 @@
     margin-top: 5vw;
     border-radius: 10px;
     height: 45vh;
-    background-color: rgb(11, 11, 110);
-    color: white;
+    background-color: rgb(198, 198, 210);
+    color: black;
 }
 
 .service .develop:hover

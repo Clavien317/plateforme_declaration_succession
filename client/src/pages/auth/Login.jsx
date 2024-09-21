@@ -17,14 +17,15 @@ function Login() {
           <br />
           <h1 className="text-3xl font-bold text-center mb-4 my-4 text-blue-600">Bienvenue  </h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Nous sommes ravis de vous accueillir sur notre plateforme. 
+            {/* Veuillez vous connecter pour accéder à vos informations personnelles et à nos services exclusifs. */}
           </p>
 
           <div className="data">
               <div className="saisir">
-                <label htmlFor="">Email</label>
+                <label htmlFor="">NIF</label>
                 <br />
-                <input type="text" name='' placeholder='Saisissez votre Email...'required />
+                <input type="text" name='' placeholder='Saisissez votre NIF...'required />
               </div>
 
               <div className="saisir">

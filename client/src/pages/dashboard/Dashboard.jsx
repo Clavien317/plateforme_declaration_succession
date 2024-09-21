@@ -1,5 +1,5 @@
 import React from 'react'
-import AdminLayout from '../../layout/AdminLayout'
+import AdminLayout from '../../layout/ProfilLayout'
 import Heritier from '../../components/admin/Heritier'
 import { Card, CardContent, Typography } from '@mui/material';
 

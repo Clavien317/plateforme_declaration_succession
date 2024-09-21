@@ -21,7 +21,7 @@ export default function Profile() {
               Nom
             </Typography>
             <Typography variant="body2" color="text.secondary" align="center">
-              Dupont
+              Nambinina Clavien
             </Typography>
           </Grid>
 
@@ -30,7 +30,7 @@ export default function Profile() {
               Email
             </Typography>
             <Typography variant="body2" color="text.secondary" align="center">
-              dupont@gmail.com
+              claviennambinina@gmail.com
             </Typography>
           </Grid>
 
@@ -39,7 +39,7 @@ export default function Profile() {
               Adresse
             </Typography>
             <Typography variant="body2" color="text.secondary" align="center">
-              USA
+              Fianarantsoa Madagascar
             </Typography>
           </Grid>
           

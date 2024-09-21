@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AdminLayout from '../../layout/AdminLayout'
+import AdminLayout from '../../layout/ProfilLayout'
 
 function Declaration() {
 
@@ -7,7 +7,6 @@ function Declaration() {
         titre: '',
         detailsDonation: '',
         affirmationSincerite: '',
-        dateSoumission: '',
         etat: '',
         donations: [],
         passifs: [],
@@ -34,7 +33,6 @@ function Declaration() {
 
                 <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl mx-auto bg-white p-6 border border-gray-300 rounded-lg shadow-md">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Titre */}
                     <div>
                         <label className="block font-semibold">Titre de la Succession</label>
                         <input
@@ -47,7 +45,6 @@ function Declaration() {
                         />
                     </div>
 
-                    {/* Détails de la Donation */}
                     <div>
                         <label className="block font-semibold">Détails de la Donation</label>
                         <textarea
@@ -60,7 +57,6 @@ function Declaration() {
                         ></textarea>
                     </div>
 
-                    {/* Affirmation de Sincérité */}
                     <div>
                         <label className="block font-semibold">Affirmation de Sincérité</label>
                         <textarea
@@ -73,19 +69,6 @@ function Declaration() {
                         ></textarea>
                     </div>
 
-                    {/* Date de Soumission */}
-                    <div>
-                        <label className="block font-semibold">Date de Soumission</label>
-                        <input
-                        type="date"
-                        name="dateSoumission"
-                        value={formData.dateSoumission}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                        />
-                    </div>
-
-                    {/* Etat */}
                     <div>
                         <label className="block font-semibold">État de la Succession</label>
                         <input
@@ -97,7 +80,6 @@ function Declaration() {
                         />
                     </div>
 
-                    {/* Détails du Testament */}
                     <div className="col-span-2">
                         <label className="block font-semibold">Détail du Testament</label>
                         <textarea

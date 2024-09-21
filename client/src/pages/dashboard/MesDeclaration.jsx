@@ -1,5 +1,5 @@
 import React from 'react'
-import AdminLayout from '../../layout/AdminLayout'
+import AdminLayout from '../../layout/ProfilLayout'
 import ListeDeclaration from '../../components/admin/ListeDeclaration'
 
 

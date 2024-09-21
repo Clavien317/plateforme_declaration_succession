@@ -87,58 +87,6 @@ export default function ProduitTable() {
     paginationDisplayMode: "pages",
     localization: MRT_Localization_FR,
     positionToolbarAlertBanner: "bottom",
-    renderTopToolbarCustomActions: ({ table }) => (
-      <Box sx={{ display: "flex", gap: "16px", padding: "8px", flexWrap: "wrap" }} >
-        <div style={{ display: "flex" }}>
-          <StyledButton
-            component="label"
-            role={undefined}
-            variant="contained"
-            tabIndex={-1}
-            startIcon={<CloudUploadIcon />}
-            style={{ textTransform: "none" }}
-          >
-            {fileName || "Sélectionner un fichier "}
-            <VisuallyHiddenInput type="file" />
-          </StyledButton>
-          <RegularButton variant="contained" style={{ textTransform: "none" }}>
-            Enregistrer
-          </RegularButton>
-        </div>
-      </Box>
-    ),
-  });
-
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
-
-  const StyledButton = styled(Button)({
-    border: "none",
-    margin: 0,
-    borderRadius: "0",
-    color: "rgb(31, 30, 30)",
-    backgroundColor: "rgb(211, 211, 211)",
-    "&:hover": {
-      backgroundColor: "rgb(190, 190, 190)",
-    },
-  });
-
-  const RegularButton = styled(Button)({
-    borderRadius: "0",
-    backgroundColor: "#1C979E",
-    color: "#fff",
-    "&:hover": {
-      backgroundColor: "#289096",
-    },
   });
 
   const ButtonAjout = styled(Button)({

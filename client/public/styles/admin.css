@@ -1,6 +1,6 @@
 
 
-.admin-pages
+.profil-pages
 {
     width: 85%;
     float: right;
@@ -12,6 +12,22 @@
 .add-heritier
 {
     text-align: start;
+}
+
+.profil-pages .heritier
+{
+    margin-top: 5vh;
+}
+
+
+
+
+.admin-pages
+{
+    width: 85%;
+    float: right;
+    text-align: center;
+    margin-top: 3vh;
 }
 
 .admin-pages .heritier

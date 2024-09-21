@@ -2,7 +2,8 @@ import React from 'react';
 import Accueil from './pages/Accueil';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Declaration from './pages/Declaration';
-import Declarations from './pages/liste/Declaration';
+import DashboardAdmin from "./pages/administration/Dashboard"
+import DeclationList from "./components/admin/liste/Declaration"
 
 import Assistant from './pages/Assistant';
 import Login from './pages/auth/Login';
@@ -13,6 +14,8 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Profil from './pages/dashboard/Profil';
 import MesDeclaration from './pages/dashboard/MesDeclaration';
 import Brouillon from './pages/dashboard/Brouillon';
+import User from './components/admin/liste/User';
+import Testament from './components/admin/liste/Testament';
 
 function App() {
   return (
@@ -32,6 +35,14 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/declaration/brouillon' element={<Brouillon />} />
         
+
+        {/* Page admin */}
+        <Route path='/admin' element={<DashboardAdmin />} />
+        <Route path='/admin/liste/utilisateur' element={<User />} />
+        <Route path='/admin/liste/declaration' element={<DeclationList />} />
+        <Route path='/admin/liste/testament' element={<Testament />} />
+
+
       </Routes>
     </Router>
   );
