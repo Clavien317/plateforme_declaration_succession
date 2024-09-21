@@ -8,58 +8,104 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 
 export default function ProduitTable() {
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
-  const ListeProduit = async () => {
+  // Exemple de données pour les successions (à remplacer par ton API si nécessaire)
+  const ListeSuccessions = async () => {
     try {
-      const produit = await axios.get("/api/routes/produit");                  
-      setData(produit.data.produits);
-      console.log(produit.data.produits);
-      
-    } catch (error)
-    {
-      console.log("Erreur lors de la récupération des produits:", error);
+      const successions = [
+        {
+          numeroDossier: 'S001',
+          description: 'Maison à Paris, compte bancaire',
+          etat: 'En cours',
+          droitSuccession: '100 000 EUR',
+          defunt: 'Jean Dupont',
+          legataire: 'Marie Durand',
+        },
+        {
+          numeroDossier: 'S002',
+          description: 'Appartement à Nice, voiture',
+          etat: 'Clôturé',
+          droitSuccession: '50 000 EUR',
+          defunt: 'Paul Martin',
+          legataire: 'Marie Durand',
+        },
+        {
+          numeroDossier: 'S003',
+          description: 'Tableau de maître',
+          etat: 'En cours',
+          droitSuccession: '30 000 EUR',
+          defunt: 'Anne Lefevre',
+          legataire: 'Pierre Dubois',
+        },
+        {
+          numeroDossier: 'S004',
+          description: '50 000 EUR sur compte bancaire',
+          etat: 'Clôturé',
+          droitSuccession: '50 000 EUR',
+          defunt: 'Michel Moreau',
+          legataire: 'Pierre Dubois',
+        },
+      ];
+      setData(successions);
+    } catch (error) {
+      console.log("Erreur lors de la récupération des successions:", error);
     }
-  }
+  };
 
-
-  useEffect(()=>
-    {
-      ListeProduit()
-    },[])
+  useEffect(() => {
+    ListeSuccessions();
+  }, []);
 
   const [fileName, setFileName] = useState("");
 
   const columns = useMemo(
     () => [
       {
-        accessorKey: "design",
+        accessorKey: "numeroDossier",
         header: "Numero de dossier",
         size: 150,
       },
       {
-        accessorKey: "categorie",
+        accessorKey: "description",
         header: "Description",
-        size: 150,
+        size: 200,
       },
       {
         accessorKey: "etat",
         header: "Etat",
-        size: 200,
+        size: 150,
       },
       {
-        accessorKey: "prix",
-        header: " Droit de succession",
-        size: 100,
+        accessorKey: "droitSuccession",
+        header: "Taxes",
+        size: 150,
       },
       {
-        accessorKey: "quantite",
-        header: " Defunt",
-        size: 100,
+        accessorKey: "defunt",
+        header: "Défunt",
+        size: 150,
+      },
+      {
+        accessorKey: "legataire",
+        header: "Légataire",
+        size: 150,
+      },
+      {
+        accessorKey: "id",
+        header: "Detail",
+        size: 150,
+        Cell: ({ row }) => (
+          <div className="action">
+            <Link href={`/pages/admin/modification/actualite/${row.original._id}`} passHref>
+              <button>Voir detail</button>
+            </Link>
+          </div>
+        ),
       },
       {
         accessorKey: "id",
@@ -67,11 +113,11 @@ export default function ProduitTable() {
         size: 150,
         Cell: ({ row }) => (
           <div className="action">
-            <a href={`/pages/admin/modification/produit/${row.original._id}`}>
+            <Link href={`/pages/admin/modification/actualite/${row.original._id}`} passHref>
               <Button variant="contained" color="primary">
                 Modifier
               </Button>
-            </a>
+            </Link>
           </div>
         ),
       },
@@ -105,7 +151,7 @@ export default function ProduitTable() {
     <>
       <a href="/demande-declaration" className="mx-5">
         <ButtonAjout style={{ textTransform: "none" }}>
-          Creer un declaration
+          Créer une déclaration
         </ButtonAjout>
       </a>
       <div>

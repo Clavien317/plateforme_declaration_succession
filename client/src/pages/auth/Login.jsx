@@ -25,13 +25,13 @@ function Login() {
               <div className="saisir">
                 <label htmlFor="">NIF</label>
                 <br />
-                <input type="text" name='' placeholder='Saisissez votre NIF...'required />
+                <input type="text" name='nif' placeholder='Saisissez votre NIF...'required />
               </div>
 
               <div className="saisir">
                 <label htmlFor="">Mot de passe</label>
                 <br />
-                <input type="password" name='' placeholder='Entrer votre mot de passe ***'required/>
+                <input type="password" name='password' placeholder='Entrer votre mot de passe ***'required/>
               </div>
 
               <div className="forget">

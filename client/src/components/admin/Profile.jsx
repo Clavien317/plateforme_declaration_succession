@@ -55,8 +55,8 @@ export default function Profile() {
           </div>
 
           <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Numero de dossier</h2>
-            <p className="text-xl font-bold">S-00334</p>
+            <h2 className="text-xl">Contact rapide</h2>
+            <p className="text-xl font-bold">+261329092922</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">

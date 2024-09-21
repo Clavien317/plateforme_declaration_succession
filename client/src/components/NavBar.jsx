@@ -1,12 +1,12 @@
 import React from 'react';
 
 function NavBar() {
-  const token = "dwdfew";
+  const token = "dwdfews";
   return (
     <>
       <header className="shadow-lg fixed top-0 w-full z-50 bg-white">
         <div className="logo mx-5 text-3xl font-bold">
-          <h1>LOGO</h1>
+          <img src="/assets/1K6tJ435_400x400.png" alt="" />
         </div>
         <nav>
           <ul className="flex space-x-4">
