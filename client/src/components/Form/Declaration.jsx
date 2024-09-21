@@ -25,14 +25,28 @@ function Declaration() {
     <div>
       <AdminLayout>
         <form action="" method="post" className='demande'>
+
+          <h1 className='text-2xl text-black font-bold mx-3'>Detail de declaration</h1>
+
+
           <div className="champs">
             <label htmlFor="">Ce dossier est classé au numero</label>
             <br />
             <input type="text" name='' defaultValue={900} />
           </div>
 
-          <h1 className='text-2xl text-black font-bold mx-3'>Detail de declaration</h1>
-          {/* Informations sur le défunt */}
+          <div className="champs">
+            <label htmlFor="">Description testament</label>
+            <br />
+            <input type="text" name='' />
+          </div>
+
+          <div className="champs">
+            <label htmlFor="">Description testament</label>
+            <br />
+            <input type="text" name='' />
+          </div>
+
           <div className="champs">
             <label htmlFor="">Nom de defunt <span>*</span></label>
             <br />
