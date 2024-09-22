@@ -4,7 +4,7 @@ import AdminLayout from '../../layout/ProfilLayout'
 function Declaration() {
   
   const [heirs, setHeirs] = useState([{
-    name: '', dob: '', relationship: ''
+    nom: '', datenaiss: '', relation: ''
   }]);
   
   const [donations, setDonations] = useState([{
@@ -13,7 +13,7 @@ function Declaration() {
 
   // Ajouter un autre héritier
   const addHeir = () => {
-    setHeirs([...heirs, { name: '', dob: '', relationship: '' }]);
+    setHeirs([...heirs, { nom: '', datenaiss: '', relation: '' }]);
   }
 
   // Ajouter une autre donation
