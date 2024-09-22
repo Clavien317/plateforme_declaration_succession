@@ -1,14 +1,14 @@
 import React from 'react'
-import AdminLayout from '../../layout/ProfilLayout'
+import ProfilLayout from '../../layout/ProfilLayout'
 import ListeDeclaration from '../../components/admin/ListeDeclaration'
 
 
 function MesDeclaration() {
   return (
     <div>
-        <AdminLayout>
+        <ProfilLayout>
             <ListeDeclaration />
-        </AdminLayout>
+        </ProfilLayout>
     </div>
   )
 }

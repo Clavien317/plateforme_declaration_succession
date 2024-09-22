@@ -6,7 +6,8 @@
     float: right;
     /* background-color: blue; */
     text-align: start;
-    margin-top: 3vh;
+    margin-top: 11vh;
+
 }
 
 .add-heritier
@@ -26,8 +27,8 @@
 {
     width: 85%;
     float: right;
-    text-align: center;
-    margin-top: 3vh;
+    text-align: start;
+    margin-top: 11vh;
 }
 
 .admin-pages .heritier

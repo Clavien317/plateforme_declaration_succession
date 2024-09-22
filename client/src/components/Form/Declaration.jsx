@@ -48,13 +48,21 @@ function Declaration() {
           </div>
 
           <div className="champs">
-            <label htmlFor="">Nom de defunt <span>*</span></label>
+            <label htmlFor="">Precisez ici la valeur s'il y a de dette (total sommes)</label>
             <br />
             <input type="text" name='' />
           </div>
 
           <div className="champs">
-            <label htmlFor="">Lien avec vous <span>*</span></label>
+            <label htmlFor="">Description de dette</label>
+            <br />
+            <textarea name="" id=""></textarea>
+          </div>
+
+          <h1 className='text-2xl text-black font-bold mx-3'>Detail de declaration</h1>
+
+          <div className="champs">
+            <label htmlFor="">Nom de defunt <span>*</span></label>
             <br />
             <input type="text" name='' />
           </div>
@@ -70,12 +78,18 @@ function Declaration() {
                 <br />
                 <input type="text" name='' />
             </div>
-          
+                      
             <div className="champs">
                 <label htmlFor="">Date de décés </label>
                 <br />
                 <input type="date" name='' />
             </div>
+            
+          <div className="champs">
+            <label htmlFor="">Lien avec vous <span>*</span></label>
+            <br />
+            <input type="text" name='' />
+          </div>
 
             <div className="champs">
                 <label htmlFor="">Votre CIN <span>*</span></label>
@@ -101,7 +115,7 @@ function Declaration() {
               </div>
 
               <div className="champs">
-                <label htmlFor="">Lien parental <span>*</span></label>
+                <label htmlFor="">Lien parental avec defunt <span>*</span></label>
                 <br />
                 <input type="text" name={`heirRelationship${index}`} />
               </div>
@@ -126,7 +140,7 @@ function Declaration() {
               <div className="champs">
                 <label htmlFor="">Description </label>
                 <br />
-                <input type="text" name={`propertyDescription${index}`} />
+                <textarea name={`propertyDescription${index}`} id=""></textarea>
               </div>
 
               <div className="champs">

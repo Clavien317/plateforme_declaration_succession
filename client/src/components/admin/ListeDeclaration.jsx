@@ -24,7 +24,7 @@ export default function ProduitTable() {
           etat: 'En cours',
           droitSuccession: '100 000 EUR',
           defunt: 'Jean Dupont',
-          legataire: 'Marie Durand',
+          actif: '50,000 Euro',
         },
         {
           numeroDossier: 'S002',
@@ -32,7 +32,7 @@ export default function ProduitTable() {
           etat: 'Clôturé',
           droitSuccession: '50 000 EUR',
           defunt: 'Paul Martin',
-          legataire: 'Marie Durand',
+          actif: '50,000 Euro',
         },
         {
           numeroDossier: 'S003',
@@ -40,15 +40,15 @@ export default function ProduitTable() {
           etat: 'En cours',
           droitSuccession: '30 000 EUR',
           defunt: 'Anne Lefevre',
-          legataire: 'Pierre Dubois',
+          actif: '50,800 Euro',
         },
         {
           numeroDossier: 'S004',
           description: '50 000 EUR sur compte bancaire',
           etat: 'Clôturé',
-          droitSuccession: '50 000 EUR',
+          droitSuccession: '5 000 EUR',
           defunt: 'Michel Moreau',
-          legataire: 'Pierre Dubois',
+          actif: '50,000 Euro',
         },
       ];
       setData(successions);
@@ -81,6 +81,11 @@ export default function ProduitTable() {
         size: 150,
       },
       {
+        accessorKey: "actif",
+        header: "Sommes actif",
+        size: 150,
+      },
+      {
         accessorKey: "droitSuccession",
         header: "Taxes",
         size: 150,
@@ -91,19 +96,14 @@ export default function ProduitTable() {
         size: 150,
       },
       {
-        accessorKey: "legataire",
-        header: "Légataire",
-        size: 150,
-      },
-      {
         accessorKey: "id",
         header: "Detail",
         size: 150,
         Cell: ({ row }) => (
           <div className="action">
-            <Link href={`/pages/admin/modification/actualite/${row.original._id}`} passHref>
+            <a href="/declaration/32">
               <button>Voir detail</button>
-            </Link>
+            </a>
           </div>
         ),
       },
@@ -113,7 +113,7 @@ export default function ProduitTable() {
         size: 150,
         Cell: ({ row }) => (
           <div className="action">
-            <Link href={`/pages/admin/modification/actualite/${row.original._id}`} passHref>
+            <Link href={`/declaration/${row.original._id}`} passHref>
               <Button variant="contained" color="primary">
                 Modifier
               </Button>

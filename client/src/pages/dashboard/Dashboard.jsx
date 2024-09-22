@@ -34,7 +34,7 @@ function Dashboard() {
           </div>
 
           <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Date de dépôt du dossier</h2>
+            <h2 className="text-xl">Membres depuis</h2>
             <p className="text-xl font-semibold">12 septembre 2024</p>
           </div>
 
@@ -49,8 +49,8 @@ function Dashboard() {
           </div>
 
           <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Date de deces</h2>
-            <p className="text-xl font-semibold">Non defini</p>
+            <h2 className="text-xl">Nombre de declaration</h2>
+            <p className="text-xl font-semibold">01</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
