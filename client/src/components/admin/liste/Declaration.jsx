@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useMemo, useState } from "react";
 import { MaterialReactTable, useMaterialReactTable } from "material-react-table";
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
@@ -8,62 +10,89 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+export default function ProduitTable() {
 
-function User() {
   const [data, setData] = useState([]);
 
-  const listeUser = async () => {
+  // Exemple de données pour les successions (à remplacer par ton API si nécessaire)
+  const ListeSuccessions = async () => {
     try {
-      const Utilisateur = await axios.get("/api/routes/user");                  
-      setData(Utilisateur.data.users);
-    } catch (error)
-    {
-      console.log("Erreur lors de la récupération des users:", error);
+      const successions = [
+        {
+          numeroDossier: 'S001',
+          description: 'Maison à Paris, compte bancaire',
+          etat: 'En cours',
+          droitSuccession: '100 000 EUR',
+          defunt: 'Jean Dupont',
+          actif: '50,000 Euro',
+        },
+        {
+          numeroDossier: 'S002',
+          description: 'Appartement à Nice, voiture',
+          etat: 'Clôturé',
+          droitSuccession: '50 000 EUR',
+          defunt: 'Paul Martin',
+          actif: '50,000 Euro',
+        },
+        {
+          numeroDossier: 'S003',
+          description: 'Tableau de maître',
+          etat: 'En cours',
+          droitSuccession: '30 000 EUR',
+          defunt: 'Anne Lefevre',
+          actif: '50,800 Euro',
+        },
+        {
+          numeroDossier: 'S004',
+          description: '50 000 EUR sur compte bancaire',
+          etat: 'Clôturé',
+          droitSuccession: '5 000 EUR',
+          defunt: 'Michel Moreau',
+          actif: '50,000 Euro',
+        },
+      ];
+      setData(successions);
+    } catch (error) {
+      console.log("Erreur lors de la récupération des successions:", error);
     }
   };
 
-  useEffect(()=>
-  {
-    listeUser()
-  },[])
+  useEffect(() => {
+    ListeSuccessions();
+  }, []);
 
-
-  // const [data, setData] = useState(initialData);
   const [fileName, setFileName] = useState("");
 
   const columns = useMemo(
     () => [
-        {
-          accessorKey: "pdp",
-          header: "Image",
-          size: 150,
-          Cell: ({ cell }) => (
-            <img src={cell.getValue()} alt="User" style={{ width: '100px', height: '60px', objectFit: 'cover' }} />
-          ),
-        },
-        {
-        accessorKey: "nom",
-        header: "Nom complet",
+      {
+        accessorKey: "numeroDossier",
+        header: "Numero de dossier",
         size: 150,
       },
       {
-        accessorKey: "email",
-        header: "Adresse Email",
+        accessorKey: "description",
+        header: "Description",
+        size: 200,
+      },
+      {
+        accessorKey: "etat",
+        header: "Etat",
         size: 150,
       },
       {
-        accessorKey: "tel",
-        header: "Telephone",
+        accessorKey: "actif",
+        header: "Sommes actif",
         size: 150,
       },
       {
-        accessorKey: "role",
-        header: "Role",
+        accessorKey: "droitSuccession",
+        header: "Taxes",
         size: 150,
       },
       {
-        accessorKey: "password",
-        header: "Mot de passe",
+        accessorKey: "defunt",
+        header: "Défunt",
         size: 150,
       },
       {
@@ -72,9 +101,9 @@ function User() {
         size: 150,
         Cell: ({ row }) => (
           <div className="action">
-            <Link href={`/pages/admin/modification/user/${row.original._id}`}>
+            <Link href={``} passHref>
               <Button variant="contained" color="primary">
-                Modifier
+                Detail
               </Button>
             </Link>
           </div>
@@ -92,58 +121,6 @@ function User() {
     paginationDisplayMode: "pages",
     localization: MRT_Localization_FR,
     positionToolbarAlertBanner: "bottom",
-    renderTopToolbarCustomActions: ({ table }) => (
-      <Box sx={{ display: "flex", gap: "16px", padding: "8px", flexWrap: "wrap" }} >
-        <div style={{ display: "flex" }}>
-          <StyledButton
-            component="label"
-            role={undefined}
-            variant="contained"
-            tabIndex={-1}
-            startIcon={<CloudUploadIcon />}
-            style={{ textTransform: "none" }}
-          >
-            {fileName || "Sélectionner un fichier "}
-            <VisuallyHiddenInput type="file" />
-          </StyledButton>
-          <RegularButton variant="contained" style={{ textTransform: "none" }}>
-            Enregistrer
-          </RegularButton>
-        </div>
-      </Box>
-    ),
-  });
-
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
-
-  const StyledButton = styled(Button)({
-    border: "none",
-    margin: 0,
-    borderRadius: "0",
-    color: "rgb(31, 30, 30)",
-    backgroundColor: "rgb(211, 211, 211)",
-    "&:hover": {
-      backgroundColor: "rgb(190, 190, 190)",
-    },
-  });
-
-  const RegularButton = styled(Button)({
-    borderRadius: "0",
-    backgroundColor: "#1C979E",
-    color: "#fff",
-    "&:hover": {
-      backgroundColor: "#289096",
-    },
   });
 
   const ButtonAjout = styled(Button)({
@@ -160,16 +137,14 @@ function User() {
 
   return (
     <>
-      {/* <Link href="/pages/admin/ajouter/utilisateur">
+      {/* <a href="/demande-declaration" className="mx-5">
         <ButtonAjout style={{ textTransform: "none" }}>
-          Ajouter utilisateur
+          Créer une déclaration
         </ButtonAjout>
-      </Link> */}
+      </a> */}
       <div>
         <MaterialReactTable table={table} />
       </div>
     </>
   );
 }
-
-export default User

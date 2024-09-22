@@ -33,14 +33,11 @@ function User() {
 
   const columns = useMemo(
     () => [
-        {
-          accessorKey: "pdp",
-          header: "Image",
-          size: 150,
-          Cell: ({ cell }) => (
-            <img src={cell.getValue()} alt="User" style={{ width: '100px', height: '60px', objectFit: 'cover' }} />
-          ),
-        },
+      {
+        accessorKey: "nif",
+        header: "NIF",
+        size: 150,
+      },
         {
         accessorKey: "nom",
         header: "Nom complet",
@@ -160,11 +157,11 @@ function User() {
 
   return (
     <>
-      <Link href="/pages/admin/ajouter/utilisateur">
+      {/* <Link href="/pages/admin/ajouter/utilisateur">
         <ButtonAjout style={{ textTransform: "none" }}>
           Ajouter utilisateur
         </ButtonAjout>
-      </Link>
+      </Link> */}
       <div>
         <MaterialReactTable table={table} />
       </div>
