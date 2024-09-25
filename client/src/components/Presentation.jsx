@@ -47,9 +47,9 @@ function Presentation() {
                 </div>
 
                 <div className="projet">
-                    <div className='nbre'>+ 3 ans</div>
+                    <div className='nbre'>+ 10</div>
                     <br />
-                    <h1>Experience</h1>
+                    <h1>Partenaire</h1>
                     <br />
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi
@@ -109,7 +109,7 @@ function Presentation() {
             <div className="develop">
                 <div className='nbre'>1</div>
                 <br />
-                <h1>Developpement site web</h1>
+                <h1>Declaration de succession</h1>
                 <br />
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi
@@ -121,7 +121,7 @@ function Presentation() {
             <div className="develop">
                 <div className='nbre'>2</div>
                 <br />
-                <h1>Developpement logiciel</h1>
+                <h1>Impot</h1>
                 <br />
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi
@@ -133,7 +133,7 @@ function Presentation() {
             <div className="develop">
                 <div className='nbre'>3</div>
                 <br />
-                <h1>Multimedia</h1>
+                <h1>Tahiry</h1>
                 <br />
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi

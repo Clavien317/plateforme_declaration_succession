@@ -40,3 +40,14 @@
     color: white;
     border-radius: 5px;
 }
+
+.demande .other-donate
+{
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 5vh;
+    background-color: black;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+}
