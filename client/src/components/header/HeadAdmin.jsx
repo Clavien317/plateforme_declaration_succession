@@ -4,7 +4,7 @@ function Header() {
   return (
     <>
         <div className="headers">
-            <div className="logo2"><h1>#LOGO</h1></div>
+            <div className="logo2"><h1>DGi</h1></div>
 
             <div className="menu2">
                 <ul>

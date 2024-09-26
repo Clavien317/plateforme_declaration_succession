@@ -16,6 +16,7 @@ import Brouillon from './pages/dashboard/Brouillon';
 import User from './pages/administration/ListeUser';
 import Testament from './components/admin/liste/Testament';
 import Detail from './pages/dashboard/Detail';
+import Suivi from './pages/dashboard/Suivi';
 
 function App() {
   return (
@@ -42,6 +43,8 @@ function App() {
         <Route path='/admin/liste/utilisateur' element={<User />} />
         <Route path='/admin/liste/declaration' element={<DeclationList />} />
         <Route path='/admin/liste/testament' element={<Testament />} />
+
+        <Route path='/suivi' element={<Suivi />} />
 
 
       </Routes>
