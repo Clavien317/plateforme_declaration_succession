@@ -1,30 +1,29 @@
-
-const liste = [
+const questions = [
     {
         id: 1,
-        titre: "Comment faire pour declarer ?",
-        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores tempore nihil repudiandae, rerum veritatis consequatur quasi autem perspiciatis culpa cupiditate eveniet impedit ab nulla maxime architecto. Harum obcaecati deleniti quos?"
+        titre: "Comment déclarer une succession ?",
+        description: "Découvrez les étapes essentielles pour effectuer votre déclaration de succession. Nous vous expliquons chaque étape en détail, vous permettant de naviguer facilement à travers le processus."
     },
     {
         id: 2,
-        titre: "Quels sont les processus pour declarer succession ?",
-        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores tempore nihil repudiandae, rerum veritatis consequatur quasi autem perspiciatis culpa cupiditate eveniet impedit ab nulla maxime architecto. Harum obcaecati deleniti quos?"
+        titre: "Quels sont les processus pour déclarer une succession ?",
+        description: "Informez-vous sur les différentes démarches nécessaires à la déclaration d'une succession. Chaque aspect est expliqué pour vous aider à comprendre les exigences légales."
     },
     {
         id: 3,
-        titre: "Quels sont les etapes a suivre pour declarer un succession ?",
-        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores tempore nihil repudiandae, rerum veritatis consequatur quasi autem perspiciatis culpa cupiditate eveniet impedit ab nulla maxime architecto. Harum obcaecati deleniti quos?"
+        titre: "Quelles sont les étapes à suivre pour déclarer une succession ?",
+        description: "Suivez nos instructions claires et concises sur les étapes à respecter pour la déclaration d'une succession. Cela vous aidera à éviter des erreurs courantes."
     },
     {
         id: 4,
-        titre: "Comment faire pour creer compte ?",
-        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores tempore nihil repudiandae, rerum veritatis consequatur quasi autem perspiciatis culpa cupiditate eveniet impedit ab nulla maxime architecto. Harum obcaecati deleniti quos?"
+        titre: "Comment créer un compte ?",
+        description: "Apprenez à créer un compte facilement en suivant notre guide étape par étape. Nous détaillons chaque phase du processus d'inscription."
     },
     {
         id: 5,
-        titre: "Comment faire pour creer compte ?",
-        description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores tempore nihil repudiandae, rerum veritatis consequatur quasi autem perspiciatis culpa cupiditate eveniet impedit ab nulla maxime architecto. Harum obcaecati deleniti quos?"
+        titre: "Comment gérer votre compte après création ?",
+        description: "Une fois votre compte créé, découvrez comment le gérer efficacement. Nous vous donnons des conseils pour optimiser votre expérience utilisateur."
     }
-]
+];
 
-export default liste;
+export default questions;

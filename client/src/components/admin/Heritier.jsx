@@ -34,7 +34,7 @@ export default function Home() {
       },
       {
         accessorKey: "email",
-        header: "Lien parentee",
+        header: "Lien parentale",
         size: 150,
       },
       {
@@ -77,7 +77,10 @@ export default function Home() {
 
   return (
     <>
-        <h1 className="text-4xl text-start font-bold my-4 text-black mx-5">Liste des heritier</h1>
+    <br />
+    <br />
+    <br />
+        <h1 className="text-2xl text-start font-bold text-black mx-5">Liste des héritier</h1>
         <MaterialReactTable table={table} />
     </>
   );

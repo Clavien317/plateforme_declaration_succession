@@ -39,8 +39,13 @@ function Dashboard() {
           </div>
 
           <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Nom du défunt</h2>
-            <p className="text-xl font-semibold">Rakoto</p>
+              <h2 className="text-xl">Situation familiale</h2>
+              <p className="text-xl font-semibold">Marié</p>
+          </div>
+
+          <div className="bg-white p-4 shadow rounded">
+              <h2 className="text-xl">Nombre d'enfants</h2>
+              <p className="text-xl font-semibold">04</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
@@ -56,11 +61,6 @@ function Dashboard() {
           <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">Statut de dernier declaration</h2>
             <p className="text-xl font-semibold">En cours</p>
-          </div>
-
-          <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Lien de parenté du client avec le défunt</h2>
-            <p className="text-xl font-semibold">Grand frere</p>
           </div>
         </div>
 

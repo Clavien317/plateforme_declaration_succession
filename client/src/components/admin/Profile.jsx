@@ -47,48 +47,51 @@ export default function Profile() {
       </CardContent>
     </Card>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 my-9">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="bg-white p-4 shadow rounded">
+        <h2 className="text-xl">NIF</h2>
+        <p className="text-xl font-semibold">090798786780334</p>
+      </div>
 
-          <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">NIF</h2>
-            <p className="text-xl font-bold">909879800334</p>
-          </div>
+      <div className="bg-white p-4 shadow rounded">
+        <h2 className="text-xl">Contact rapide</h2>
+        <p className="text-xl font-bold">+261329092922</p>
+      </div>
 
-          <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Contact rapide</h2>
-            <p className="text-xl font-bold">+261329092922</p>
-          </div>
+      <div className="bg-white p-4 shadow rounded">
+        <h2 className="text-xl">Membres depuis</h2>
+        <p className="text-xl font-semibold">12 septembre 2024</p>
+      </div>
 
-          <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Date de dépôt du dossier</h2>
-            <p className="text-xl font-bold">12 septembre 2024</p>
-          </div>
+      <div className="bg-white p-4 shadow rounded">
+          <h2 className="text-xl">Situation familiale</h2>
+          <p className="text-xl font-semibold">Marié</p>
+      </div>
 
-          <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Nom du défunt</h2>
-            <p className="text-xl font-bold">Rakoto</p>
-          </div>
+      <div className="bg-white p-4 shadow rounded">
+          <h2 className="text-xl">Nombre d'enfants</h2>
+          <p className="text-xl font-semibold">04</p>
+      </div>
 
-          <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Droits de succession</h2>
-            <p className="text-xl font-bold">5,000</p>
-          </div>
+      <div className="bg-white p-4 shadow rounded">
+        <h2 className="text-xl">Droits de succession</h2>
+        <p className="text-xl font-semibold">5,000</p>
+      </div>
 
-          <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Date de deces</h2>
-            <p className="text-xl font-bold">Non defini</p>
-          </div>
+      <div className="bg-white p-4 shadow rounded">
+        <h2 className="text-xl">Nombre de declaration</h2>
+        <p className="text-xl font-semibold">01</p>
+      </div>
 
-          <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Statut de declaration</h2>
-            <p className="text-xl font-bold">En cours</p>
-          </div>
+      <div className="bg-white p-4 shadow rounded">
+        <h2 className="text-xl">Statut de dernier declaration</h2>
+        <p className="text-xl font-semibold">En cours</p>
+      </div>
+      </div>
 
-          <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Lien de parenté du client avec le défunt</h2>
-            <p className="text-xl font-bold">Grand frere</p>
-          </div>
-        </div>
+      <button className=" btn-update bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition duration-200">
+        Modifier votre profil
+      </button>
     </>
   );
 }

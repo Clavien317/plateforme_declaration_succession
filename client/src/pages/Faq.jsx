@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DefaultLayout from '../layout/DefaultLayout'
 import Faqs from '../components/Faq'
-import liste from "../lib/faq";
+import question from "../lib/faq";
 
 
 
@@ -18,7 +18,7 @@ function Faq() {
   };
 
   useEffect(() => {
-    setFaq(liste);
+    setFaq(question);
   }, []);
 
   return (
