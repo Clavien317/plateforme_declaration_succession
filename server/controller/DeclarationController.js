@@ -1,0 +1,98 @@
+const Declaration = require("../model/Declaration")
+const Actif = require("../model/Actif")
+const Passif = require("../model/Passif")
+const Heritier = require("../model/Heritier")
+
+
+
+const createDeclaration = async (req, res) => {
+    const { dossierNum, titre, description_test, dette, detail_dette, nom_defunt, naiss_defunt, respo_defunt, dece_defunt, lien_defunt, lega_cin, nomheritier, naissheritier, lienheritier, biens, bienDescription, bienValeur } = req.body;
+  
+    try {
+      const newDeclaration = await Declaration.create({
+        dossierNum:dossierNum,
+        id_user:"932730973",
+        titre:titre,
+        description_test:description_test,
+        nom_defunt:nom_defunt,
+        naiss_defunt:naiss_defunt,
+        respo_defunt:respo_defunt,
+        dece_defunt:dece_defunt,
+        lien_defunt:lien_defunt,
+        lega_cin:lega_cin,
+      });
+  
+      const newHeritier = await Heritier.create({
+        nom: nomheritier,
+        datenaiss: naissheritier,
+        relation: lienheritier,
+        declarationId: newDeclaration._id,
+        dossierNum:dossierNum
+      })
+  
+      const newActif = await Actif.create({
+        biens:biens,
+        description: bienDescription,
+        valeur: bienValeur,
+        declarationId: newDeclaration._id,
+        dossierNum:dossierNum,
+        beneficiaire:"xxxxxxxxxxx"
+      })
+
+      const newPassif = await Passif.create({
+        dette: dette,
+        detail_dette: detail_dette,
+        declarationId: newDeclaration._id,
+        dossierNum:dossierNum
+      })
+  
+      res.status(201).json({ message: "Insertion de la déclaration réussie",data:{newDeclaration,newActif,newHeritier,newPassif} });
+    } catch (error) {
+      console.error("Erreur lors de l'insertion", error);
+      res.status(500).json({ message: "Erreur serveur lors de l'insertion" });
+    }
+  }
+
+const list=async(req,res)=>{
+    const data = await Declaration.find()
+    res.json(data)
+}
+
+const update=async(req,res)=>{
+    const id = req.params.id;
+    const data = req.body
+    if (!id || !data) {
+        return res.status(400).json("Données invalides");
+    }
+
+    try {
+        const updatedUtilisateur = await Utilisateur.findByIdAndUpdate(id, data, { new: true, runValidators: true });
+        if (updatedUtilisateur) {
+            res.json({
+                message: "Utilisateur modifiée avec succès",
+                Utilisateur: updatedUtilisateur
+            })
+        } else {
+            res.status(404).json("ID non trouvé");
+        }
+    } catch (error) 
+    {
+        console.error("Erreur lors de la mise à jour:", error);
+        res.status(500).json("Erreur serveur");
+    }
+}
+
+const deleted = async (req, res) => {
+    const id = req.params.id;
+    await Utilisateur.findByIdAndDelete(id);
+    res.status(200).json({ message: "Utilisateur supprimée avec succès" });
+};
+
+const Singledata =async(req,res)=>{
+    const id = req.params.id
+    const data = await Utilisateur.findOne({ _id: id })
+    res.json(data)
+}
+
+
+module.exports ={createDeclaration,update,deleted,list,Singledata}

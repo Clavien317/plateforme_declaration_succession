@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
-// Exemple de données (remplacez cette logique par une récupération réelle)
 const exampleDeclarations = [
   {
     id: 1,
@@ -16,48 +16,27 @@ const exampleDeclarations = [
       { id: 'p1', type: 'Dette', valeur: 'Crédit Auto', declarationID: 1 },
       { id: 'p2', type: 'Hypothèque', valeur: 'Maison', declarationID: 1 }
     ]
-  },
-  {
-    id: 2,
-    titre: 'Déclaration 2',
-    etat: 'Soumise',
-    droits: 'Tous droits réservés',
-    actifs: [
-      { id: 'a1', type: 'Propriété', valeur: 'Maison', declarationID: 1 },
-      { id: 'a2', type: 'Compte Bancaire', valeur: '12345678', declarationID: 1 }
-    ],
-    passifs: [
-      { id: 'p1', type: 'Dette', valeur: 'Crédit Auto', declarationID: 1 },
-      { id: 'p2', type: 'Hypothèque', valeur: 'Maison', declarationID: 1 }
-    ]
-  },
-  {
-    id: 3,
-    titre: 'Déclaration 3',
-    etat: 'Soumise',
-    droits: 'Tous droits réservés',
-    actifs: [
-      { id: 'a1', type: 'Propriété', valeur: 'Maison', declarationID: 1 },
-      { id: 'a2', type: 'Compte Bancaire', valeur: '12345678', declarationID: 1 }
-    ],
-    passifs: [
-      { id: 'p1', type: 'Dette', valeur: 'Crédit Auto', declarationID: 1 },
-      { id: 'p2', type: 'Hypothèque', valeur: 'Maison', declarationID: 1 }
-    ]
   }
-  // Ajoutez d'autres déclarations ici
 ];
-  
+
+
 function Mesdeclaration() {
   const [declarations, setDeclarations] = useState([]);
   const navigate = useNavigate();
 
+  const listeDeclaration =async()=>
+  {
+    const result = await axios.get("http://localhost:5000/api/v1/declaration")
+    setDeclarations(result)
+  }
+      
+
   useEffect(() => {
-    setDeclarations(exampleDeclarations); // Remplacez par la logique de récupération réelle
+    listeDeclaration()
   }, []);
 
   const handleDetailClick = (id) => {
-    navigate(`/declaration/${id}`); // Remplacez par le chemin de votre page de détails
+    navigate(`/declaration/${id}`);
   };
 
   return (

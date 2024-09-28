@@ -2,7 +2,8 @@ const mongoose = require("../utils/db")
 
 
 const schema = new mongoose.Schema({
-    testamentID:{type: String,required: true},
+    declarationId:{type: String,required: true},
+    dossierNum:{type: String,required: true},
     nom:{type: String,required: true},
     datenaiss:{type: String,required: true},
     relation:{type: String,required: true},

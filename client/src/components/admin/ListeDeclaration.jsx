@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useMemo, useState } from "react";
 import { MaterialReactTable, useMaterialReactTable } from "material-react-table";
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
@@ -13,66 +11,46 @@ import { Link } from "react-router-dom";
 export default function ProduitTable() {
 
   const [data, setData] = useState([]);
+  const [totalActif, setTotalActif] = useState(0);
 
-  // Exemple de données pour les successions (à remplacer par ton API si nécessaire)
-  const ListeSuccessions = async () => {
+  const listeDeclaration = async () => {
     try {
-      const successions = [
-        {
-          numeroDossier: 'S001',
-          description: 'Maison à Paris, compte bancaire',
-          etat: 'En cours',
-          droitSuccession: '100 000 EUR',
-          defunt: 'Jean Dupont',
-          actif: '50,000 Euro',
-        },
-        {
-          numeroDossier: 'S002',
-          description: 'Appartement à Nice, voiture',
-          etat: 'Clôturé',
-          droitSuccession: '50 000 EUR',
-          defunt: 'Paul Martin',
-          actif: '50,000 Euro',
-        },
-        {
-          numeroDossier: 'S003',
-          description: 'Tableau de maître',
-          etat: 'En cours',
-          droitSuccession: '30 000 EUR',
-          defunt: 'Anne Lefevre',
-          actif: '50,800 Euro',
-        },
-        {
-          numeroDossier: 'S004',
-          description: '50 000 EUR sur compte bancaire',
-          etat: 'Clôturé',
-          droitSuccession: '5 000 EUR',
-          defunt: 'Michel Moreau',
-          actif: '50,000 Euro',
-        },
-      ];
-      setData(successions);
+      const result = await axios.get("http://localhost:5000/api/v1/declaration/list");
+      setData(result.data);
+
     } catch (error) {
-      console.log("Erreur lors de la récupération des successions:", error);
+      console.error("Erreur lors de la récupération des déclarations :", error);
     }
   };
 
-  useEffect(() => {
-    ListeSuccessions();
-  }, []);
+  const DetailActif = async () =>
+  {
+    const result = await axios.get("http://localhost:5000/api/v1/actif/list");
+      // const sommeTotal = result.data.reduce((acc, declaration) => {
+      //   return acc + parseFloat(declaration.valeur || 0)
+      // }, 0);
+      console.log(result.data[0].valeur);
+      
 
-  const [fileName, setFileName] = useState("");
+      setTotalActif(result.data[0].valeur);
+  }
+
+  useEffect(() => {
+    listeDeclaration();
+
+    DetailActif()
+  }, []);
 
   const columns = useMemo(
     () => [
       {
-        accessorKey: "numeroDossier",
+        accessorKey: "dossierNum",
         header: "Numero de dossier",
         size: 150,
       },
       {
-        accessorKey: "description",
-        header: "Description",
+        accessorKey: "titre",
+        header: "Titre de declaration",
         size: 200,
       },
       {
@@ -81,39 +59,37 @@ export default function ProduitTable() {
         size: 150,
       },
       {
-        accessorKey: "actif",
-        header: "Sommes actif",
+        accessorKey: "valeur",
+        header: "Somme Actif (Valeur)",
         size: 150,
+        Cell: () => (
+          <>
+            {totalActif}
+          </>
+        )
       },
       {
         accessorKey: "droitSuccession",
         header: "Taxes",
         size: 150,
+        Cell: () => (
+          <>
+            {totalActif*0.005}
+          </>
+        )
       },
       {
-        accessorKey: "defunt",
+        accessorKey: "nom_defunt",
         header: "Défunt",
         size: 150,
       },
       {
-        accessorKey: "id",
-        header: "Detail",
-        size: 150,
-        Cell: ({ row }) => (
-          <div className="action">
-            <a href="/declaration/32">
-              <button>Voir detail</button>
-            </a>
-          </div>
-        ),
-      },
-      {
-        accessorKey: "id",
+        accessorKey: "_id",
         header: "Action",
         size: 150,
         Cell: ({ row }) => (
           <div className="action">
-            <Link href={`/declaration/${row.original._id}`} passHref>
+            <Link to={`/declaration/${row.original._id}`}>
               <Button variant="contained" color="primary">
                 Modifier
               </Button>
@@ -155,7 +131,13 @@ export default function ProduitTable() {
         </ButtonAjout>
       </a>
       <div>
+        {/* Affichage du tableau */}
         <MaterialReactTable table={table} />
+
+        {/* Affichage de la somme totale des actifs */}
+        <Box mt={2}>
+          <h3>Total des Actifs : {totalActif} Ariary</h3>
+        </Box>
       </div>
     </>
   );

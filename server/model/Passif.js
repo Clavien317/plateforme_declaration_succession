@@ -2,8 +2,9 @@ const mongoose = require("../utils/db")
 
 
 const schema = new mongoose.Schema({
-    valeur:{type: String,required: true},
-    description:{type: String,required: true},
+    declarationId:{type: String,required: true},
+    dette:{type: String,required: true},
+    detail_dette:{type: String,required: true},
     dossierNum:{type: String,required: true},
 },
 { timestamps: true })
