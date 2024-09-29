@@ -9,6 +9,8 @@ import "../public/styles/profil.css"
 import "../public/styles/header.css"
 import "../public/styles/admin.css"
 import "../public/styles/form.css"
+import "../public/styles/suivi.css"
+
 
 
 

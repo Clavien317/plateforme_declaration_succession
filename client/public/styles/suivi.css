@@ -1,0 +1,36 @@
+
+
+.suivi
+{
+    margin-top: 5vh;
+}
+
+
+.suivi table
+{
+    width: 90%;
+    margin-left: 5%;
+}
+
+
+.suivi h1
+{
+    margin-left: 5%;
+    margin-bottom: 5vh;
+}
+
+.suivi table th 
+{
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+.suivi table td
+{
+    text-align: center;
+}
+
+.suivi table tbody tr:hover
+{
+    background-color: beige;
+}
