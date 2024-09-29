@@ -18,16 +18,18 @@ const create = async (req, res) => {
         res.status(500).json("Erreur serveur lors de l'insertion")
         res.json("Erreur serveur lors de l'insertion")
     }
-};
+}
+
+
 
 const login=async(req,res)=>
 {
-    const { email, password } = req.body;
+    const { nif, password } = req.body;
     try {
-        const utilisateur = await Utilisateur.findOne({ email });
+        const utilisateur = await Utilisateur.findOne({ nif });
         if (!utilisateur)
         {
-            return res.json({message:"Email n'existe pas",status:401});
+            return res.json({message:"nif n'existe pas",status:401});
         }
         else
         {
