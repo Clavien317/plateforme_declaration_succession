@@ -14,8 +14,8 @@ function User() {
 
   const listeUser = async () => {
     try {
-      const Utilisateur = await axios.get("/api/routes/user");                  
-      setData(Utilisateur.data.users);
+      const Utilisateur = await axios.get("http://localhost:5000/api/v1/user/list");                  
+      setData(Utilisateur.data);
     } catch (error)
     {
       console.log("Erreur lors de la récupération des users:", error);
@@ -59,8 +59,8 @@ function User() {
         size: 150,
       },
       {
-        accessorKey: "password",
-        header: "Mot de passe",
+        accessorKey: "etatcompte",
+        header: "Etat de compte",
         size: 150,
       },
       {

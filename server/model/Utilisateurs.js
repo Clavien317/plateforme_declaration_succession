@@ -10,6 +10,7 @@ const schema = new mongoose.Schema({
     cin:{type: String,required: false},
     codeRecuperation:{type: String,required: false},
     role:{type: String,required: true},
+    etatcompte:{type: String,default:"En entente",required: true},
     password:{type: String,required: true},
 },
 { timestamps: true })
