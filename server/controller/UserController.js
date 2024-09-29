@@ -3,13 +3,14 @@ const bcrypt = require("bcrypt")
 
 
 const create = async (req, res) => {
-    const { nom, email,tel,role, password } = req.body
+    const { nom, email,tel, password } = req.body
     if (!nom || !tel || !password) {
         return res.status(400).json("La nom_Utilisateur, le tel et le password sont requis")
     }
     try {
         const hashedPassword = await bcrypt.hash(password, 12)
-        await Utilisateur.create({ nom_Utilisateur,tel, email, password: hashedPassword })
+        const role = "utilisateur"
+        await Utilisateur.create({ nom,tel, email,role, password: hashedPassword })
         res.json("Insertion réussie")
     } catch (error)
     {
