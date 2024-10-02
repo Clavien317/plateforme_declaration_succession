@@ -26,12 +26,7 @@ export default function ProduitTable() {
   const DetailActif = async () =>
   {
     const result = await axios.get("http://localhost:5000/api/v1/actif/list");
-      // const sommeTotal = result.data.reduce((acc, declaration) => {
-      //   return acc + parseFloat(declaration.valeur || 0)
-      // }, 0);
       console.log(result.data[0].valeur);
-      
-
       setTotalActif(result.data[0].valeur);
   }
 
