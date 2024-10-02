@@ -7,6 +7,8 @@ const bodyParser = require("body-parser")
 const utilisateur = require('./routes/user')
 const Declaration = require('./routes/declaration')
 const actif = require('./routes/actif')
+const heritier = require('./routes/heritier')
+
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -16,6 +18,7 @@ app.use(cors())
 app.use("/api/v1/user",utilisateur)
 app.use("/api/v1/declaration",Declaration)
 app.use("/api/v1/actif",actif)
+app.use("/api/v1/heritier",heritier)
 
 
 
