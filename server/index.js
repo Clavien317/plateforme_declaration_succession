@@ -9,7 +9,7 @@ const Declaration = require('./routes/declaration')
 const actif = require('./routes/actif')
 
 
-
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(express.json())
 app.use(cors())

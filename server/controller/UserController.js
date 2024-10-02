@@ -1,5 +1,6 @@
 const Utilisateur = require("../model/Utilisateurs")
 const bcrypt = require("bcrypt")
+const nodemailer = require("nodemailer")
 
 
 const create = async (req, res) => {
@@ -86,6 +87,7 @@ const list=async(req,res)=>{
 const update=async(req,res)=>{
     const id = req.params.id;
     const data = req.body
+    // sendEmail()
     if (!id || !data) {
         return res.status(400).json("Données invalides");
     }
@@ -120,4 +122,43 @@ const Singledata =async(req,res)=>{
 }
 
 
-module.exports ={create,update,deleted,list,Singledata}
+
+const sendEmail = async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const utilisateur = await Utilisateur.findById(id);
+      if (!utilisateur) {
+        return res.status(404).json({ message: "Utilisateur non trouvé" });
+      }
+  
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_ADMIN,
+          pass: process.env.EMAIL_PWD,
+        },
+      });
+  
+      const mailOptions = {
+        from: process.env.EMAIL_ADMIN,
+        to: utilisateur.email,
+        subject: "Confirmation de compte",
+        text: `Bonjour ${utilisateur.nom},\n\nVotre compte a été confirmé avec succès.\n\nCordialement,\nL'équipe.`,
+      };
+  
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error("Erreur lors de l'envoi de l'email :", error);
+          return res.status(500).json({ message: "Erreur lors de l'envoi de l'email" });
+        } else {
+          res.json({ message: "Email envoyé avec succès" });
+        }
+      });
+    } catch (error) {
+      console.error("Erreur lors de l'envoi de l'email :", error);
+      res.status(500).json({ message: "Erreur serveur" });
+    }
+  };
+
+module.exports ={create,update,deleted,list,Singledata,sendEmail}
