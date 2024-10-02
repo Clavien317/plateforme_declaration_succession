@@ -38,8 +38,9 @@ header nav ul li a
 {
     width: 30%;
     height: 5vh;
-    background-color: blue;
+    background-color: rgb(53, 87, 236);
     margin-bottom: 5vh;
     color: white;
     border-radius: 5px;
+    margin-top: 5vh;
 }
