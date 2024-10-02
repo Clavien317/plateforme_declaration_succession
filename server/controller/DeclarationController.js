@@ -58,6 +58,19 @@ const list=async(req,res)=>{
     res.json(data)
 }
 
+const listSpec = async (req, res) => {
+  try {
+      const { id_user } = req.params;
+      const data = await Declaration.find({ id_user });
+      if (data.length === 0) {
+          return res.status(404).json({ message: 'Aucun declaration trouvé pour ce id_user.' });
+      }
+      res.status(200).json(data)
+  } catch (error) {
+      res.status(500).json({ message: 'Erreur serveur', error: error.message });
+  }
+}
+
 const update=async(req,res)=>{
     const id = req.params.id;
     const data = req.body
@@ -95,4 +108,4 @@ const Singledata =async(req,res)=>{
 }
 
 
-module.exports ={createDeclaration,update,deleted,list,Singledata}
+module.exports ={createDeclaration,update,deleted,list,Singledata,listSpec}

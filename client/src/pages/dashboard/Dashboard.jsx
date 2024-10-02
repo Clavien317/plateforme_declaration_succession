@@ -17,6 +17,15 @@ function Dashboard() {
   }
 
 
+  function formaterDate(datetimeStr) {
+    const date = new Date(datetimeStr);
+    const mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+    const jour = date.getDate();
+    const moisNom = mois[date.getMonth()];
+    const annee = date.getFullYear(); 
+    return `${jour} ${moisNom} ${annee}`;
+  }
+
 
   useEffect(()=>
   {
@@ -54,7 +63,7 @@ function Dashboard() {
 
           <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">Membres depuis</h2>
-            <p className="text-xl font-semibold">{profil.createdAt}</p>
+            <p className="text-xl font-semibold">{formaterDate(profil.createdAt)}</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">

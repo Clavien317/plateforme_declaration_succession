@@ -1,7 +1,29 @@
 import { Card, CardContent, Typography } from '@mui/material'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 function DetailDeclaration() {
+    const [heritier,setHeritier] = useState([])
+    const dossierNum = 900
+
+
+    const listeHeritier = async () => {
+        try {
+          const response = await axios.get(`http://localhost:5000/api/v1/heritier/list/${dossierNum}`);
+          console.log(response.data);
+          setHeritier(response.data);
+        } catch (error) {
+          console.error("Erreur lors de la récupération des héritiers :", error);
+        }
+      };
+
+
+useEffect(()=>
+{
+    listeHeritier()
+},[])
+
+
   return (
     <>
       <form action="">
@@ -112,14 +134,19 @@ function DetailDeclaration() {
             </div>
 
             <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Proprietaire</h2>
-              <input 
-                type="text" 
-                defaultValue="Non defini" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
+                <h2 className="text-xl">Propriétaire</h2>
+                <select name="beneficier" className="w-full border border-gray-300 rounded px-2 py-1">
+                    {heritier.length > 0 ? (
+                    heritier.map((h) => (
+                        <option key={h._id} value={h.nom}>
+                        {h.nom}
+                        </option>
+                    ))
+                    ) : (
+                    <option value="">Aucun héritier trouvé</option>
+                    )}
+                </select>
             </div>
-
             <div className="bg-white p-4 shadow rounded">
               <h2 className="text-xl">Designation</h2>
               <input 
@@ -147,97 +174,61 @@ function DetailDeclaration() {
             </div>
 
             <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Proprietaire</h2>
-              <input 
-                type="text" 
-                defaultValue="Non defini" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
+                <h2 className="text-xl">Propriétaire</h2>
+                <select name="beneficier" className="w-full border border-gray-300 rounded px-2 py-1">
+                    {heritier.length > 0 ? (
+                    heritier.map((h) => (
+                        <option key={h._id} value={h.nom}>
+                        {h.nom}
+                        </option>
+                    ))
+                    ) : (
+                    <option value="">Aucun héritier trouvé</option>
+                    )}
+                </select>
             </div>
           </div>
 
           {/* Héritier */}
-          <div className="heritier-grid">
-            <h1 className="text-2xl font-bold mx-7">Héritier</h1>
-            <hr className='h-1 w-9 bg-black mb-6 mx-7' />
+            <div className="heritier-grid">
+                <h1 className="text-2xl font-bold mx-7">Héritier</h1>
+                <hr className='h-1 w-9 bg-black mb-6 mx-7' />
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {/* Héritier 1 */}
+                    {heritier.length > 0 ? (
+                        heritier.map((heritier) => (
+                        <div key={heritier._id} className="bg-white p-4 shadow rounded">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
+                            <input
+                            type="text"
+                            value={heritier.nom || "Non défini"}
+                            className="text-xl border-0 focus:ring-0 w-full"
+                            readOnly
+                            />
+                            
+                            <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Lien parental</label>
+                            <input
+                            type="text"
+                            value={heritier.relation || "Non défini"}
+                            className="text-xl border-0 focus:ring-0 w-full"
+                            readOnly
+                            />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {/* Héritier 1 */}
-                <div className="bg-white p-4 shadow rounded">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
-                    <input
-                    type="text"
-                    defaultValue="Randrianantenaina"
-                    className="text-xl border-0 focus:ring-0 w-full"
-                    />
-                    
-                    <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Lien parental</label>
-                    <input
-                    type="text"
-                    defaultValue="Lien parental"
-                    className="text-xl border-0 focus:ring-0 w-full"
-                    />
+                            <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Date de naissance</label>
+                            <input
+                            type="text"
+                            value={heritier.datenaiss || "Non défini"}
+                            className="text-xl border-0 focus:ring-0 w-full"
+                            readOnly
+                            />
+                        </div>
+                        ))
+                    ) : (
+                        <p>Aucun héritier trouvé pour ce numéro de dossier.</p>
+                    )}
 
-                    <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Date de naissance</label>
-                    <input
-                    type="text"
-                    defaultValue="Date de naissance"
-                    className="text-xl border-0 focus:ring-0 w-full"
-                    />
                 </div>
-
-                {/* Héritier 2 */}
-                <div className="bg-white p-4 shadow rounded">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
-                    <input
-                    type="text"
-                    defaultValue="Randrianantenaina"
-                    className="text-xl border-0 focus:ring-0 w-full"
-                    />
-                    
-                    <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Lien parental</label>
-                    <input
-                    type="text"
-                    defaultValue="Lien parental"
-                    className="text-xl border-0 focus:ring-0 w-full"
-                    />
-
-                    <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Date de naissance</label>
-                    <input
-                    type="text"
-                    defaultValue="Date de naissance"
-                    className="text-xl border-0 focus:ring-0 w-full"
-                    />
-                </div>
-
-                {/* Héritier 3 */}
-                <div className="bg-white p-4 shadow rounded">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
-                    <input
-                    type="text"
-                    defaultValue="Randrianantenaina"
-                    className="text-xl border-0 focus:ring-0 w-full"
-                    />
-                    
-                    <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Lien parental</label>
-                    <input
-                    type="text"
-                    defaultValue="Lien parental"
-                    className="text-xl border-0 focus:ring-0 w-full"
-                    />
-
-                    <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Date de naissance</label>
-                    <input
-                    type="text"
-                    defaultValue="Date de naissance"
-                    className="text-xl border-0 focus:ring-0 w-full"
-                    />
-                </div>
-                </div>
-
-
-          </div>
-
+            </div>
           <button className='btn-update'>Modifier</button>
         </div>
       </form>

@@ -35,7 +35,7 @@ function Declaration() {
           <div className="champs">
             <label htmlFor="">Ce dossier est classé au numero</label>
             <br />
-            <input type="text" name='dossierNum' onChange={change} value={900} />
+            <input type="text" name='dossierNum' onChange={change} value={"U-NIF"} />
           </div>
 
           

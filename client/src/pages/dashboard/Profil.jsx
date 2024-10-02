@@ -3,6 +3,8 @@ import AdminLayout from '../../layout/ProfilLayout'
 import Profile from '../../components/admin/Profile'
 
 function Profil() {
+
+
   return (
     <div>
         <AdminLayout>
