@@ -1,20 +1,62 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Typography, Avatar, Grid, Box } from '@mui/material';
-import axios from 'axios';
+// import { Card, CardContent, Typography, Avatar, Grid, Box } from '@mui/material';
+import { Card, CardContent, Typography, Avatar, Grid, Box, Button, Modal, TextField, MenuItem, Select, InputLabel, FormControl } from '@mui/material';import axios from 'axios';
 
 export default function Profile() {
 
-  
-  const [profil,setProfil] = useState([])
+  const [profil, setProfil] = useState({});
+  const [open, setOpen] = useState(false);
+  const [formValues, setFormValues] = useState({
+    nom: '',
+    email: '',
+    adresse: '',
+    nif: '',
+    cin: '',
+    tel: '',
+    situation: '',
+    nbEnfant: '',
+    taxe: '',
+    nbDeclaration: '',
+    statutDeclaration: '',
+  });
 
-  const profilUser=async()=>
-  {
-    const data = await axios.get("http://localhost:5000/api/v1/user/66f904ab17ce1470cf333dec")
-    console.log(data.data);
-    
-    setProfil(data.data)
+  const profilUser = async () => {
+    const data = await axios.get('http://localhost:5000/api/v1/user/66f904ab17ce1470cf333dec');
+    setProfil(data.data);
+    setFormValues(data.data);
+  };
+
+  function formaterDate(datetimeStr) {
+    const date = new Date(datetimeStr);
+    const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    const jour = date.getDate();
+    const moisNom = mois[date.getMonth()];
+    const annee = date.getFullYear();
+    return `${jour} ${moisNom} ${annee}`;
   }
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:5000/api/v1/user/update/${profil._id}`, formValues);
+      alert('Profil mis à jour avec succès');
+      setProfil(formValues);
+      handleClose();
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du profil:', error);
+    }
+  };
   
   function formaterDate(datetimeStr) {
     const date = new Date(datetimeStr);
@@ -117,9 +159,96 @@ export default function Profile() {
       </div>
       </div>
 
-      <button className=" btn-update bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition duration-200">
+      <Button onClick={handleOpen} variant="contained" color="primary">
         Modifier votre profil
-      </button>
+      </Button>
+
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={{ width: 400, margin: 'auto', mt: 5, p: 4, backgroundColor: 'white', borderRadius: 2, maxHeight: '80vh', overflow: 'auto' }}>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Nom"
+              name="nom"
+              value={formValues.nom}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Email"
+              name="email"
+              value={formValues.email}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Adresse"
+              name="adresse"
+              value={formValues.adresse}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="NIF"
+              name="nif"
+              value={formValues.nif}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Téléphone"
+              name="tel"
+              value={formValues.tel}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            
+            <TextField
+              label="CIN"
+              name="cin"
+              value={formValues.cin}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+
+            <FormControl fullWidth margin="normal">
+              <InputLabel id="situation-label">Situation familiale</InputLabel>
+              <Select
+                labelId="situation-label"
+                name="situation"
+                value={formValues.situation}
+                onChange={handleChange}
+                label="Situation familiale"
+              >
+                <MenuItem value="celibataire">Célibataire</MenuItem>
+                <MenuItem value="mariee">Mariée</MenuItem>
+                <MenuItem value="veuf">Veuf</MenuItem>
+              </Select>
+            </FormControl>
+
+            <TextField
+              label="Nombre d'enfants"
+              name="nbEnfant"
+              value={formValues.nbEnfant}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+
+            <div className='mx-9'>
+              <Button type="submit" variant="contained" color="primary" fullWidth>
+                Sauvegarder
+              </Button>
+            </div>
+          </form>
+        </Box>
+      </Modal>
+
     </>
   );
 }

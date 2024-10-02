@@ -14,44 +14,10 @@ export default function ProduitTable() {
 
   const [data, setData] = useState([]);
 
-  // Exemple de données pour les successions (à remplacer par ton API si nécessaire)
   const ListeSuccessions = async () => {
     try {
-      const successions = [
-        {
-          numeroDossier: 'S001',
-          description: 'Maison à Paris, compte bancaire',
-          etat: 'En cours',
-          droitSuccession: '100 000 EUR',
-          defunt: 'Jean Dupont',
-          actif: '50,000 Euro',
-        },
-        {
-          numeroDossier: 'S002',
-          description: 'Appartement à Nice, voiture',
-          etat: 'Clôturé',
-          droitSuccession: '50 000 EUR',
-          defunt: 'Paul Martin',
-          actif: '50,000 Euro',
-        },
-        {
-          numeroDossier: 'S003',
-          description: 'Tableau de maître',
-          etat: 'En cours',
-          droitSuccession: '30 000 EUR',
-          defunt: 'Anne Lefevre',
-          actif: '50,800 Euro',
-        },
-        {
-          numeroDossier: 'S004',
-          description: '50 000 EUR sur compte bancaire',
-          etat: 'Clôturé',
-          droitSuccession: '5 000 EUR',
-          defunt: 'Michel Moreau',
-          actif: '50,000 Euro',
-        },
-      ];
-      setData(successions);
+      const successions = await axios.get("http://localhost:5000/api/v1/declaration/list")
+      setData(successions.data);
     } catch (error) {
       console.log("Erreur lors de la récupération des successions:", error);
     }
@@ -66,12 +32,17 @@ export default function ProduitTable() {
   const columns = useMemo(
     () => [
       {
-        accessorKey: "numeroDossier",
+        accessorKey: "dossierNum",
         header: "Numero de dossier",
         size: 150,
       },
       {
-        accessorKey: "description",
+        accessorKey: "titre",
+        header: "Entete",
+        size: 200,
+      },
+      {
+        accessorKey: "description_test",
         header: "Description",
         size: 200,
       },
@@ -91,7 +62,7 @@ export default function ProduitTable() {
         size: 150,
       },
       {
-        accessorKey: "defunt",
+        accessorKey: "nom_defunt",
         header: "Défunt",
         size: 150,
       },

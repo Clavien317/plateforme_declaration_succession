@@ -17,6 +17,7 @@ import User from './pages/administration/ListeUser';
 import Testament from './components/admin/liste/Testament';
 import Detail from './pages/dashboard/Detail';
 import Suivi from './pages/dashboard/Suivi';
+import UserUpdate from './components/admin/update/UserUpdate';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path='/admin/liste/testament' element={<Testament />} />
 
         <Route path='/suivi' element={<Suivi />} />
+        <Route path='/admin/modification/user/:id' element={<UserUpdate />}/>
 
 
       </Routes>
