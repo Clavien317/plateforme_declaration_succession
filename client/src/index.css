@@ -32,3 +32,14 @@ header nav ul li a
 {
     margin-top: 5vh;
 }
+
+
+.btn-update
+{
+    width: 30%;
+    height: 5vh;
+    background-color: blue;
+    margin-bottom: 5vh;
+    color: white;
+    border-radius: 5px;
+}

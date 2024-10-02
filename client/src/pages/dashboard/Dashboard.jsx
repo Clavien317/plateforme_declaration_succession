@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminLayout from '../../layout/ProfilLayout'
 import Heritier from '../../components/admin/Heritier'
 import { Card, CardContent, Typography } from '@mui/material';
+import axios from 'axios';
 
 function Dashboard() {
+
+  const [profil,setProfil] = useState([])
+
+  const profilUser=async()=>
+  {
+    const data = await axios.get("http://localhost:5000/api/v1/user/66f904ab17ce1470cf333dec")
+    console.log(data.data);
+    
+    setProfil(data.data)
+  }
+
+
+
+  useEffect(()=>
+  {
+    profilUser()
+  },[])
+
   return (
     <>
       <AdminLayout>
@@ -25,42 +44,42 @@ function Dashboard() {
 
           <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">NIF</h2>
-            <p className="text-xl font-semibold">090798786780334</p>
+            <p className="text-xl font-semibold">{profil.nif}</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">Contact rapide</h2>
-            <p className="text-xl font-bold">+261329092922</p>
+            <p className="text-xl font-bold">{profil.tel}</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">Membres depuis</h2>
-            <p className="text-xl font-semibold">12 septembre 2024</p>
+            <p className="text-xl font-semibold">{profil.createdAt}</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
               <h2 className="text-xl">Situation familiale</h2>
-              <p className="text-xl font-semibold">Marié</p>
+              <p className="text-xl font-semibold">{profil.situation|| "Non precis"}</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
               <h2 className="text-xl">Nombre d'enfants</h2>
-              <p className="text-xl font-semibold">04</p>
+              <p className="text-xl font-semibold">{profil.nbEnfant|| "Non precis"}</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">Droits de succession</h2>
-            <p className="text-xl font-semibold">5,000</p>
+            <p className="text-xl font-semibold">{profil.taxe|| "Non precis"}</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">Nombre de declaration</h2>
-            <p className="text-xl font-semibold">01</p>
+            <p className="text-xl font-semibold">{profil.nbDossier|| "Non precis"}</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">Statut de dernier declaration</h2>
-            <p className="text-xl font-semibold">En cours</p>
+            <p className="text-xl font-semibold">{profil.statutDeclaration|| "Non precis"}</p>
           </div>
         </div>
 
