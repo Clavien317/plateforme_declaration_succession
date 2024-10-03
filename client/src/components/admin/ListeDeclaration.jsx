@@ -9,53 +9,17 @@ import { Link } from "react-router-dom";
 
 export default function ProduitTable() {
   const [data, setData] = useState([]);
-  const [totalActifGlobal, setTotalActifGlobal] = useState(0);
-  const [actifsParDossier, setActifsParDossier] = useState(0);
-
-  const [totauxParDossier, setTotauxParDossier] = useState({});
-  const [totalGlobalActif, setTotalGlobalActif] = useState(0);
-
-  const calculerTotauxActifs = async () => {
-    try {
-      const declarations = await axios.get("http://localhost:5000/api/v1/declaration/list");
-      const totauxTemp = {};
-      let sommeTotale = 0;
-
-      // Itérer sur chaque déclaration pour récupérer la somme des actifs
-      for (const declaration of declarations.data) {
-        const result = await axios.get(`http://localhost:5000/api/v1/actif/list/${declaration.dossierNum}`);
-        if (Array.isArray(result.data)) {
-          const sommeActifs = result.data.reduce((acc, actif) => acc + (actif.valeur || 0), 0);
-          totauxTemp[declaration.dossierNum] = sommeActifs;
-          sommeTotale += sommeActifs; // Ajouter au total global
-        }
-      }
-
-      setTotauxParDossier(totauxTemp);
-      setTotalGlobalActif(sommeTotale); // Mettre à jour le total global
-      setData(declarations.data); // Mettre à jour les données des déclarations
-    } catch (error) {
-      console.error("Erreur lors de la récupération des données :", error);
-    }
-  };
-
-  useEffect(() => {
-    calculerTotauxActifs();
-  }, []);
 
   const listeDeclaration = async () => {
     try {
       const result = await axios.get("http://localhost:5000/api/v1/declaration/list");
       setData(result.data);
-
-      let totalGlobal = 0;
-      const actifsParDossierTemp = {};
-      setActifsParDossier(actifsParDossierTemp);
-      setTotalActifGlobal(totalGlobal);
     } catch (error) {
       console.error("Erreur lors de la récupération des déclarations :", error);
     }
-  };
+  }
+
+  
 
   useEffect(() => {
     listeDeclaration();
@@ -84,7 +48,7 @@ export default function ProduitTable() {
         size: 150,
         Cell: ({ row }) => (
           <>
-            {totauxParDossier[row.original.dossierNum] || 0}
+            900
           </>
         ),
       },
@@ -94,7 +58,7 @@ export default function ProduitTable() {
         size: 150,
         Cell: ({ row }) => (
           <>
-            {(actifsParDossier[row.original.dossierNum] || 0) * 0.005}
+            00.99
           </>
         ),
       },
@@ -118,7 +82,7 @@ export default function ProduitTable() {
         ),
       },
     ],
-    [actifsParDossier]
+    []
   );
 
   const table = useMaterialReactTable({
@@ -153,7 +117,7 @@ export default function ProduitTable() {
       <div>
         <MaterialReactTable table={table} />
         <Box mt={2}>
-          <h3>Total des Actifs : {totalActifGlobal} Ariary</h3>
+          <h3>Total des Actifs : 0 Ariary</h3>
         </Box>
       </div>
     </>
