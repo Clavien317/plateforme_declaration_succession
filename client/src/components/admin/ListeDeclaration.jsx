@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 export default function ProduitTable() {
   const [data, setData] = useState([]);
-  const [actifsData, setActifsData] = useState({}); // State pour stocker les actifs par dossier
+  const [valeurs, setValeurs] = useState({});  // Stocker les valeurs de chaque dossier
 
   const listeDeclaration = async () => {
     try {
@@ -18,36 +18,41 @@ export default function ProduitTable() {
     } catch (error) {
       console.error("Erreur lors de la récupération des déclarations :", error);
     }
-  }
+  };
 
-  // Fonction pour récupérer les actifs d'un dossier
-  const fetchActifs = async (dossierNum) => {
+  const ListeActif = async (dossierNum) => {
     try {
-      const result = await axios.get(`http://localhost:5000/api/v1/actif/list/${dossierNum}`);
-      return result.data; // Retourne les actifs pour un dossier
+      const response = await axios.get(`http://localhost:5000/api/v1/actif/lister/${dossierNum}`);
+      console.log("Liste actif : ", response.data);
+      
+      let somme = 0;
+      response.data.forEach((actif) => {
+        console.log("Valeur:", actif.valeur);
+        somme += actif.valeur;
+      });
+      return somme;
     } catch (error) {
-      console.error("Erreur lors de la récupération des actifs :", error);
-      return [];
+      console.error('Erreur lors de la récupération du actif utilisateur', error);
+      return 0; // En cas d'erreur, retourner 0
     }
-  }
+  };
 
   useEffect(() => {
     listeDeclaration();
   }, []);
 
   useEffect(() => {
-    const fetchAllActifs = async () => {
-      // Récupère les actifs pour chaque dossierNum
-      const actifs = {};
-      for (const row of data) {
-        const actifData = await fetchActifs(row.dossierNum);
-        actifs[row.dossierNum] = actifData.reduce((sum, actif) => sum + parseFloat(actif.valeur), 0);
+    const fetchValeurs = async () => {
+      const nouvellesValeurs = {};
+      for (let declaration of data) {
+        const sommeValeur = await ListeActif(declaration.dossierNum);
+        nouvellesValeurs[declaration.dossierNum] = sommeValeur;
       }
-      setActifsData(actifs); // Met à jour l'état des actifs
+      setValeurs(nouvellesValeurs);
     };
-
+    
     if (data.length > 0) {
-      fetchAllActifs();
+      fetchValeurs();
     }
   }, [data]);
 
@@ -60,7 +65,7 @@ export default function ProduitTable() {
       },
       {
         accessorKey: "titre",
-        header: "Titre de declaration",
+        header: "Titre de déclaration",
         size: 200,
       },
       {
@@ -70,29 +75,29 @@ export default function ProduitTable() {
       },
       {
         accessorKey: "etat",
-        header: "Etat",
+        header: "État",
         size: 150,
       },
-      // {
-      //   accessorKey: "sommeActif",
-      //   header: "Somme Actif (Valeur)",
-      //   size: 150,
-      //   Cell: ({ row }) => (
-      //     <>
-      //       {actifsData[row.original.dossierNum] || "Chargement..."}
-      //     </>
-      //   ),
-      // },
-      // {
-      //   accessorKey: "droitSuccession",
-      //   header: "Taxes",
-      //   size: 150,
-      //   Cell: ({ row }) => (
-      //     <>
-      //      {actifsData[row.original.dossierNum] ? (actifsData[row.original.dossierNum] * 0.05).toFixed(2) : "Chargement..."}
-      //     </>
-      //   ),
-      // },
+      {
+        accessorKey: "sommeActif",
+        header: "Somme Actif (Valeur)",
+        size: 150,
+        Cell: ({ row }) => (
+          <>
+            {valeurs[row.original.dossierNum] !== undefined ? valeurs[row.original.dossierNum] : "Calcul en cours..."}
+          </>
+        ),
+      },
+      {
+        accessorKey: "taxe",
+        header: "Taxes",
+        size: 150,
+        Cell: ({ row }) => (
+          <>
+            {valeurs[row.original.dossierNum] !== undefined ? valeurs[row.original.dossierNum]*0.05 : "Calcul en cours..."}
+          </>
+        ),
+      },
       {
         accessorKey: "nom_defunt",
         header: "Défunt",
@@ -106,14 +111,14 @@ export default function ProduitTable() {
           <div className="action">
             <Link to={`/declaration/${row.original.dossierNum}`}>
               <Button variant="contained" color="primary">
-                Detail
+                Détail
               </Button>
             </Link>
           </div>
         ),
       },
     ],
-    [] 
+    [valeurs] // On ajoute 'valeurs' comme dépendance
   );
 
   const table = useMaterialReactTable({

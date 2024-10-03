@@ -8,6 +8,9 @@ function Dashboard() {
   const [profil, setProfil] = useState({});
   const [IDuser, setIDuser] = useState('');
   const [Declaration, setDeclaration] = useState([]);
+  const [Actif, setActif] = useState([]);
+  const [Valeur, setValeur] = useState(0);
+
 
   useEffect(() => {
     const token = localStorage.getItem("token-succession-user");
@@ -26,6 +29,25 @@ function Dashboard() {
     }
   };
 
+  const ListeActif = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/v1/actif/list/${IDuser}`);
+      console.log("Liste actif : ",response.data);
+      let somme = 0
+      for (let i = 0; i < response.data.length; i++) {
+        console.log(`Élément ${i + 1}:`);
+        console.log("Valuer:", response.data[i].valeur);
+        somme +=response.data[i].valeur
+      }
+      setValeur(somme)
+
+      setActif(response.data);
+
+    } catch (error) {
+      console.error('Erreur lors de la récupération du actif utilisateur', error);
+    }
+  };
+
   const declaration = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/api/v1/declaration/list/${IDuser}`);
@@ -36,7 +58,8 @@ function Dashboard() {
     }
   };
 
-  function formaterDate(datetimeStr) {
+  function formaterDate(datetimeStr)
+  {
     const date = new Date(datetimeStr);
     const mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
     const jour = date.getDate();
@@ -49,6 +72,7 @@ function Dashboard() {
     if (IDuser) {
       profilUser();
       declaration();
+      ListeActif()
     }
   }, [IDuser]);
 
@@ -56,7 +80,7 @@ function Dashboard() {
     <>
       <AdminLayout>
         <h1 className='text-4xl text-start font-bold mx-4 my-5'>Tableau de bord</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
           <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">NIF</h2>
@@ -84,23 +108,29 @@ function Dashboard() {
           </div>
 
           <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Droits de succession</h2>
-            <p className="text-xl font-semibold">{profil.taxe || "Non précisé"}</p>
-          </div>
-
-          <div className="bg-white p-4 shadow rounded">
             <h2 className="text-xl">Nombre de déclarations</h2>
             <p className="text-xl font-semibold">{Declaration.length || "Non précisé"}</p>
           </div>
 
           <div className="bg-white p-4 shadow rounded">
-            <h2 className="text-xl">Statut de la dernière déclaration</h2>
-            <p className="text-xl font-semibold">{profil.statutDeclaration || "Non précisé"}</p>
+            <h2 className="text-xl">Total actif</h2>
+            <p className="text-xl font-semibold">{Actif.length || "Non précisé"}</p>
           </div>
+
+          <div className="bg-white p-4 shadow rounded">
+            <h2 className="text-xl">Somme de valeur Total actif</h2>
+            <p className="text-xl font-semibold">{Valeur || "Non précisé"} Ariary</p>
+          </div>
+
+          <div className="bg-white p-4 shadow rounded">
+            <h2 className="text-xl">Taxes à payer (5%)</h2>
+            <p className="text-xl font-semibold">{Valeur*0.05 || "Non précisé"} Ariary</p>
+          </div>
+
         </div>
 
         <div className="heritier">
-          {/* <Heritier /> */}
+
         </div>
       </AdminLayout>
     </>

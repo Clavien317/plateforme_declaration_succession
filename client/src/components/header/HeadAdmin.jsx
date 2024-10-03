@@ -4,7 +4,9 @@ function Header() {
   return (
     <>
         <div className="headers">
-            <div className="logo2"><h1>DGi</h1></div>
+          <div className="logo2">
+              <img src="/assets/1K6tJ435_400x400.png" alt="" />
+            </div>
 
             <div className="menu2">
                 <ul>

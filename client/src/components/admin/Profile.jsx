@@ -148,7 +148,7 @@ export default function Profile() {
       </CardContent>
     </Card>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
       <div className="bg-white p-4 shadow rounded">
         <h2 className="text-xl">NIF</h2>
         <p className="text-xl font-semibold">{profil.nif || "Non precis"}</p>
@@ -174,20 +174,20 @@ export default function Profile() {
           <p className="text-xl font-semibold">{profil.nbEnfant || "Non precis"}</p>
       </div>
 
-      <div className="bg-white p-4 shadow rounded">
+      {/* <div className="bg-white p-4 shadow rounded">
         <h2 className="text-xl">Droits de succession</h2>
         <p className="text-xl font-semibold">{profil.taxe || "Non precis"}</p>
-      </div>
+      </div> */}
 
       <div className="bg-white p-4 shadow rounded">
         <h2 className="text-xl">Nombre de declaration</h2>
         <p className="text-xl font-semibold">{Declaration.length || "Non precis"}</p>
       </div>
 
-      <div className="bg-white p-4 shadow rounded">
+      {/* <div className="bg-white p-4 shadow rounded">
         <h2 className="text-xl">Statut de dernier declaration</h2>
         <p className="text-xl font-semibold">{profil.statutDeclaration || "Non precis"}</p>
-      </div>
+      </div> */}
       </div>
 
       <Button onClick={handleOpen} variant="contained" color="primary">
