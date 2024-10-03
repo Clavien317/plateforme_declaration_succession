@@ -1,9 +1,7 @@
-"use client";
-
 import React, { useEffect, useMemo, useState } from "react";
 import { MaterialReactTable, useMaterialReactTable } from "material-react-table";
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Modal, Typography, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import axios from "axios";
@@ -12,6 +10,7 @@ export default function ProduitTable() {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedDeclaration, setSelectedDeclaration] = useState(null);
+  const [newEtat, setNewEtat] = useState("");
 
   const ListeSuccessions = async () => {
     try {
@@ -28,10 +27,30 @@ export default function ProduitTable() {
 
   const handleOpen = (row) => {
     setSelectedDeclaration(row.original);
+    setNewEtat(row.original.etat); // Pré-remplir le champ "Etat"
     setOpen(true);
   };
 
   const handleClose = () => setOpen(false);
+
+  const handleUpdate = async () => {
+    if (!selectedDeclaration || !newEtat) {
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/v1/declaration/update/${selectedDeclaration.dossierNum}`,
+        { etat: newEtat }
+      );
+      console.log(response.data);
+      // Mettre à jour les données localement pour refléter les changements
+      ListeSuccessions();
+      setOpen(false); // Fermer le modal après la mise à jour
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour:", error);
+    }
+  };
 
   const columns = useMemo(
     () => [
@@ -55,16 +74,16 @@ export default function ProduitTable() {
         header: "Etat",
         size: 150,
       },
-      {
-        accessorKey: "actif",
-        header: "Sommes actif",
-        size: 150,
-      },
-      {
-        accessorKey: "droitSuccession",
-        header: "Taxes",
-        size: 150,
-      },
+      // {
+      //   accessorKey: "actif",
+      //   header: "Sommes actif",
+      //   size: 150,
+      // },
+      // {
+      //   accessorKey: "droitSuccession",
+      //   header: "Taxes",
+      //   size: 150,
+      // },
       {
         accessorKey: "nom_defunt",
         header: "Défunt",
@@ -167,8 +186,18 @@ export default function ProduitTable() {
                 <strong>Description :</strong> {selectedDeclaration.description_test}
               </Typography>
               <Typography sx={{ mt: 2 }}>
-                <strong>État :</strong> {selectedDeclaration.etat}
+                <strong>État :</strong>
+                <TextField
+                  value={newEtat}
+                  onChange={(e) => setNewEtat(e.target.value)}
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                />
               </Typography>
+              <ButtonAjout variant="contained" onClick={handleUpdate}>
+                Modifier
+              </ButtonAjout>
             </>
           )}
         </Box>

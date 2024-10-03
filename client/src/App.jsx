@@ -20,6 +20,8 @@ import Detail from './pages/dashboard/Detail';
 import Suivi from './pages/dashboard/Suivi';
 import UserUpdate from './components/admin/update/UserUpdate';
 import AjoutActif from './components/Form/Actif'
+import Heritier from './pages/dashboard/Heritier';
+import AddHeritier from './components/Form/Heritier';
 
 
 
@@ -43,7 +45,10 @@ function App() {
         <Route path='/declaration/brouillon' element={<Brouillon />} />
         <Route path='/declaration/:id' element={ <Detail />} />
         <Route path='/declaration/actif' element={ <ListeActif />} />
+        <Route path='/declaration/heritier' element={ <Heritier />} />
+
         <Route path='/add-actif' element={ <AjoutActif />} />
+        <Route path='/add-heritier' element={ <AddHeritier />} />
 
 
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../layout/ProfilLayout';
-import Heritier from '../../components/admin/Heritier';
+import Heritier from '../../components/admin/ListeHeritier';
 import { Card, CardContent, Typography } from '@mui/material';
 import axios from 'axios';
 
@@ -100,7 +100,7 @@ function Dashboard() {
         </div>
 
         <div className="heritier">
-          <Heritier />
+          {/* <Heritier /> */}
         </div>
       </AdminLayout>
     </>
