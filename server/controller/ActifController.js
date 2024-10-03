@@ -3,18 +3,17 @@ const Actif = require("../model/Actif")
 
 
 const create = async (req, res) => {
-    const { userId,dossierNum, biens, bienDescription, bienValeur } = req.body;
-  
+    const { beneficiaire,userId,dossierNum, biens, description, valeur } = req.body;
     try {
       const newActif = await Actif.create({
         userId:userId,
         biens:biens,
         taxe:biens*0.05,
-        description: bienDescription,
-        valeur: bienValeur,
+        description: description,
+        valeur: valeur,
         declarationId: "j...jkhiuh",
         dossierNum:dossierNum,
-        beneficiaire:"xxxxxxxxxxx"
+        beneficiaire:beneficiaire||"xxxxxxxxxxx"
       })
 
       res.status(201).json({ message: "Insertion des actifs réussie",data:{newActif} });

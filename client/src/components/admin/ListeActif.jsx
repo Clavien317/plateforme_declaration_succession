@@ -135,7 +135,7 @@ export default function ProduitTable() {
 
   return (
     <>
-      <a href="/demande-declaration" className="mx-5">
+      <a href="/add-actif" className="mx-5">
         <ButtonAjout style={{ textTransform: "none" }}>
           Créer une actif
         </ButtonAjout>

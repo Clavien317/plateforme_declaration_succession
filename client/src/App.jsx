@@ -19,6 +19,7 @@ import Testament from './components/admin/liste/Testament';
 import Detail from './pages/dashboard/Detail';
 import Suivi from './pages/dashboard/Suivi';
 import UserUpdate from './components/admin/update/UserUpdate';
+import AjoutActif from './components/Form/Actif'
 
 
 
@@ -42,6 +43,7 @@ function App() {
         <Route path='/declaration/brouillon' element={<Brouillon />} />
         <Route path='/declaration/:id' element={ <Detail />} />
         <Route path='/declaration/actif' element={ <ListeActif />} />
+        <Route path='/add-actif' element={ <AjoutActif />} />
 
 
 
