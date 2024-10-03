@@ -22,8 +22,6 @@ const create = async (req, res) => {
     }
 }
 
-
-
 const login=async(req,res)=>
 {
     const { nif, password } = req.body;
