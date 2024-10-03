@@ -6,12 +6,21 @@ import axios from 'axios'
 
 function Declaration() {
   const [input, setInput] = useState({});
-  const router = useNavigate()
+  const [IDuser, setIDuser] = useState('');
+
 
   const change = (e) => {
     const { name, value } = e.target;
     setInput(values => ({ ...values, [name]: value,dossierNum:900}));
   }
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token-succession-user");
+  //   if (token) {
+  //     const decodedToken = JSON.parse(atob(token.split('.')[1]));
+  //     setIDuser(decodedToken.id);
+  //   }
+  // }, []);
 
   const submit = async (e) => {
     e.preventDefault();

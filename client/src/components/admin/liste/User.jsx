@@ -40,8 +40,8 @@ function User() {
       listeUser();
       // Envoyer un email
       await axios.post("http://localhost:5000/api/v1/user/send-email", {
-        userId: id,
-        nouveauEtat: nouveauEtat,
+        id: id,
+        nif:nif
       });
     } catch (error) {
       console.log("Erreur lors de la modification de l'état du compte:", error);
@@ -50,13 +50,13 @@ function User() {
 
   const handleSendEmail = async () => {
     try {
-      await axios.post("http://localhost:5000/api/v1/user/send-email", {
-        userId: selectedUserId,
+      await axios.post("http://localhost:5000/api/v1/user/informer", {
+        id: selectedUserId,
         title: emailTitle,
         message: emailMessage,
       });
       alert("Email envoyé !");
-      setOpenModal(false); // Fermer le modal après envoi
+      setOpenModal(false);
     } catch (error) {
       console.log("Erreur lors de l'envoi de l'email:", error);
     }
@@ -64,12 +64,15 @@ function User() {
 
   const handleModalOpen = (userId, userEmail) => {
     setSelectedUserId(userId);
-    setSelectedUserEmail(userEmail); // Enregistrer l'email de l'utilisateur
-    setOpenModal(true); // Ouvrir le modal
+    setSelectedUserEmail(userEmail);
+    setEmailTitle("");
+    setEmailMessage("");
+  
+    setOpenModal(true);
   };
 
   const handleModalClose = () => {
-    setOpenModal(false); // Fermer le modal
+    setOpenModal(false);
   };
 
   const columns = useMemo(
@@ -158,6 +161,7 @@ function User() {
             autoFocus
             margin="dense"
             label="Titre de l'email"
+            name="titre"
             type="text"
             fullWidth
             variant="outlined"
@@ -167,6 +171,7 @@ function User() {
           <TextField
             margin="dense"
             label="Message"
+            name="message"
             type="text"
             fullWidth
             variant="outlined"

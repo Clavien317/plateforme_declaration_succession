@@ -6,6 +6,7 @@ export default function Profile() {
 
   const [profil, setProfil] = useState({});
   const [open, setOpen] = useState(false);
+  const [IDuser, setIDuser] = useState('');
   const [formValues, setFormValues] = useState({
     nom: '',
     email: '',
@@ -18,12 +19,41 @@ export default function Profile() {
     taxe: '',
     nbDeclaration: '',
     statutDeclaration: '',
-  });
+  })
+
+  const [Declaration, setDeclaration] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token-succession-user");
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      setIDuser(decodedToken.id);
+    }
+  }, []);
 
   const profilUser = async () => {
-    const data = await axios.get('http://localhost:5000/api/v1/user/66f904ab17ce1470cf333dec');
-    setProfil(data.data);
-    setFormValues(data.data);
+
+    const token = localStorage.getItem("token-succession-user")    
+    if (token) {
+      const tokenParts = token.split('.');
+      const decodedPayload = JSON.parse(atob(tokenParts[1]));    
+      const idUser = decodedPayload.id;
+      const data = await axios.get(`http://localhost:5000/api/v1/user/${idUser}`)    
+      setProfil(data.data)
+      setFormValues(data.data);
+    } else {
+      console.log("Aucun token trouvé");
+    }
+  };
+
+
+  const declaration = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/v1/declaration/list/${IDuser}`);
+      setDeclaration(response.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des déclarations', error);
+    }
   };
 
   function formaterDate(datetimeStr) {
@@ -70,6 +100,7 @@ export default function Profile() {
   useEffect(()=>
   {
     profilUser()
+    declaration()
   },[])
 
 
@@ -150,7 +181,7 @@ export default function Profile() {
 
       <div className="bg-white p-4 shadow rounded">
         <h2 className="text-xl">Nombre de declaration</h2>
-        <p className="text-xl font-semibold">{profil.nbDeclaration || "Non precis"}</p>
+        <p className="text-xl font-semibold">{Declaration.length || "Non precis"}</p>
       </div>
 
       <div className="bg-white p-4 shadow rounded">

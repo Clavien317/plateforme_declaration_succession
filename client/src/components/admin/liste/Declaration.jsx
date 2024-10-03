@@ -3,20 +3,19 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { MaterialReactTable, useMaterialReactTable } from "material-react-table";
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
-import { Box } from "@mui/material";
+import { Box, Modal, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 export default function ProduitTable() {
-
   const [data, setData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedDeclaration, setSelectedDeclaration] = useState(null);
 
   const ListeSuccessions = async () => {
     try {
-      const successions = await axios.get("http://localhost:5000/api/v1/declaration/list")
+      const successions = await axios.get("http://localhost:5000/api/v1/declaration/list");
       setData(successions.data);
     } catch (error) {
       console.log("Erreur lors de la récupération des successions:", error);
@@ -27,7 +26,12 @@ export default function ProduitTable() {
     ListeSuccessions();
   }, []);
 
-  const [fileName, setFileName] = useState("");
+  const handleOpen = (row) => {
+    setSelectedDeclaration(row.original);
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
 
   const columns = useMemo(
     () => [
@@ -72,11 +76,9 @@ export default function ProduitTable() {
         size: 150,
         Cell: ({ row }) => (
           <div className="action">
-            <Link href={``} passHref>
-              <Button variant="contained" color="primary">
-                Detail
-              </Button>
-            </Link>
+            <Button variant="contained" color="primary" onClick={() => handleOpen(row)}>
+              Detail
+            </Button>
           </div>
         ),
       },
@@ -108,14 +110,69 @@ export default function ProduitTable() {
 
   return (
     <>
-      {/* <a href="/demande-declaration" className="mx-5">
-        <ButtonAjout style={{ textTransform: "none" }}>
-          Créer une déclaration
-        </ButtonAjout>
-      </a> */}
       <div>
         <MaterialReactTable table={table} />
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-title" variant="h6" component="h2">
+            Détails de la déclaration
+          </Typography>
+          {selectedDeclaration && (
+            <>
+              <Typography id="modal-description" sx={{ mt: 2 }}>
+                <strong>Numéro de dossier :</strong> {selectedDeclaration.dossierNum}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>ID utilisateur :</strong> {selectedDeclaration.id_user}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>Titre :</strong> {selectedDeclaration.titre}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>Défunt :</strong> {selectedDeclaration.nom_defunt}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>Date de naissance du défunt :</strong> {selectedDeclaration.naiss_defunt}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>Responsable du défunt :</strong> {selectedDeclaration.respo_defunt}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>Date de décès :</strong> {selectedDeclaration.dece_defunt}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>Lien avec le défunt :</strong> {selectedDeclaration.lien_defunt}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>CIN du légataire :</strong> {selectedDeclaration.lega_cin}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>Description :</strong> {selectedDeclaration.description_test}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                <strong>État :</strong> {selectedDeclaration.etat}
+              </Typography>
+            </>
+          )}
+        </Box>
+      </Modal>
     </>
   );
 }
