@@ -7,16 +7,20 @@ import { useNavigate } from 'react-router-dom';
 
 function Nav() {
 
-    const token = localStorage.getItem("token-succession-user")
-    console.log(token);
-
-    const router = useNavigate()
-
+    const token = localStorage.getItem("token-succession-user");
+    const router = useNavigate();
+  
     useEffect(() => {
-        if (!token) {
-            router('/');
-        }
+      if (!token) {
+        router('/'); // Rediriger si le token est absent
+      }
     }, [token, router]);
+
+    const deconnect=()=>
+    {
+        localStorage.removeItem("token-succession-user")
+        router('/login');
+    }
     
   return (
     <>
@@ -30,7 +34,7 @@ function Nav() {
                         <li><a href="/declaration/actif"><span className="icon"><FaListUl /></span> Actifs</a></li>
                         <li><a href="/declaration/brouillon"><span className="icon"><FaListUl /></span> Brouillon</a></li>
                         <li><a href="/suivi"><span className="icon"><FaListUl /></span> Suivi des declaration</a></li>
-                        <li><a href=""><span className="icon"><FaQuestion /></span>Deconnexion</a></li>
+                        <li onClick={()=>deconnect()}><a><span className="icon"><FaQuestion /></span>Deconnexion</a></li>
                     </ul>
                 </nav>
             </div>

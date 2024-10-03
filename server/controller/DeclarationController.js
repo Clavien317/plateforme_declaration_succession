@@ -6,12 +6,12 @@ const Heritier = require("../model/Heritier")
 
 
 const createDeclaration = async (req, res) => {
-    const { dossierNum, titre, description_test, dette, detail_dette, nom_defunt, naiss_defunt, respo_defunt, dece_defunt, lien_defunt, lega_cin, nomheritier, naissheritier, lienheritier, biens, bienDescription, bienValeur } = req.body;
+    const { userId,dossierNum, titre, description_test, dette, detail_dette, nom_defunt, naiss_defunt, respo_defunt, dece_defunt, lien_defunt, lega_cin, nomheritier, naissheritier, lienheritier, biens, bienDescription, bienValeur } = req.body;
   
     try {
       const newDeclaration = await Declaration.create({
         dossierNum:dossierNum,
-        id_user:"932730973",
+        id_user:userId,
         titre:titre,
         description_test:description_test,
         nom_defunt:nom_defunt,
@@ -24,6 +24,7 @@ const createDeclaration = async (req, res) => {
   
       const newHeritier = await Heritier.create({
         nom: nomheritier,
+        userId:userId,
         datenaiss: naissheritier,
         relation: lienheritier,
         declarationId: newDeclaration._id,
@@ -31,12 +32,13 @@ const createDeclaration = async (req, res) => {
       })
   
       const newActif = await Actif.create({
+        userId:userId,
         biens:biens,
         description: bienDescription,
         valeur: bienValeur,
         declarationId: newDeclaration._id,
         dossierNum:dossierNum,
-        beneficiaire:"xxxxxxxxxxx"
+        beneficiaire:"non defini"
       })
 
       const newPassif = await Passif.create({

@@ -3,11 +3,13 @@ const Actif = require("../model/Actif")
 
 
 const create = async (req, res) => {
-    const { dossierNum, biens, bienDescription, bienValeur } = req.body;
+    const { userId,dossierNum, biens, bienDescription, bienValeur } = req.body;
   
     try {
       const newActif = await Actif.create({
+        userId:userId,
         biens:biens,
+        taxe:biens*0.05,
         description: bienDescription,
         valeur: bienValeur,
         declarationId: "j...jkhiuh",
@@ -29,8 +31,8 @@ const list=async(req,res)=>{
 
 const listSpec = async (req, res) => {
     try {
-        const { dossierNum } = req.params;
-        const data = await Actif.find({dossierNum});
+        const id = req.params.id;
+        const data = await Actif.find({userId:id});
         if (data.length === 0) {
             return res.status(404).json({ message: 'Aucun actif trouvé pour ce dossierNum.' });
         }
@@ -46,7 +48,6 @@ const update=async(req,res)=>{
     if (!id || !data) {
         return res.status(400).json("Données invalides");
     }
-
     try {
         const updatedActif = await Actif.findByIdAndUpdate(id, data, { new: true, runValidators: true });
         if (updatedActif) {

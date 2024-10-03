@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminLayout from '../../layout/ProfilLayout'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
@@ -7,19 +7,29 @@ import axios from 'axios'
 function Declaration() {
   const [input, setInput] = useState({});
   const [IDuser, setIDuser] = useState('');
+  const [Num, setNum] = useState('');
 
+  useEffect(() => {
+    const token = localStorage.getItem("token-succession-user");
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      setIDuser(decodedToken.id);
+    }
+    const num = Math.floor(100 + Math.random() * 99999);
+    setNum(num) 
+    
+  }, []);
 
   const change = (e) => {
     const { name, value } = e.target;
-    setInput(values => ({ ...values, [name]: value,dossierNum:900}));
+    setInput(values => ({ ...values, [name]: value,dossierNum:Num,userId:IDuser}));
   }
 
   const submit = async (e) => {
     e.preventDefault();
-    try{
-      console.log(input);
-      
+    try{      
       await axios.post("http://localhost:5000/api/v1/declaration/create",input)
+      alert("Cree avec success")
     } catch (err) {
       console.log("Erreur lors de declaration succession ", err);
     }
@@ -30,17 +40,14 @@ function Declaration() {
       <AdminLayout>
         <form action="" method="post" className='demande' onSubmit={submit}>
           <h1 className='text-2xl text-black font-bold mx-3'>Detail de declaration</h1>
-
+            <div className="champs">
+              <label htmlFor="">Ce dossier est classé au numero</label>
+              <br />
+              <input type="text" name='dossierNum' onChange={change} value={Num} />
+            </div>
 
           <div className="champs">
-            <label htmlFor="">Ce dossier est classé au numero</label>
-            <br />
-            <input type="text" name='dossierNum' onChange={change} value={"U-NIF"} />
-          </div>
-
-          
-          <div className="champs">
-          <label>Entête de déclaration ou titre</label>
+            <label>Entête de déclaration ou titre</label>
             <br />
             <input type="text" name='titre' onChange={change} />
           </div>

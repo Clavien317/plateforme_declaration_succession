@@ -21,15 +21,13 @@ function Login() {
         try {
             const response = await axios.post("http://localhost:5000/api/v1/user/login", input);
             if (response.data.login) {
-                localStorage.setItem("token-succession-user",response.data.token)
-                if(response.data.token){
-                    console.log(input.email);
-                    console.log(response.data.token);
-                    navigate(`/dashboard`); 
-                }
+              localStorage.setItem("token-succession-user",response.data.token)
+              if(response.data.token){
+                  navigate(`/dashboard`); 
+              }
             }
             else{
-                alert("Email ou mot de passe invalide");
+                alert("NIF ou mot de passe invalide");
             }
         } catch (error) {
             alert("Mot de passe incorrect")
@@ -55,13 +53,13 @@ function Login() {
               <div className="saisir">
                 <label htmlFor="">NIF</label>
                 <br />
-                <input type="text" name='nif' onChange={change} placeholder='Saisissez votre NIF...'required />
+                <input type="text" name='nif' onChange={change} placeholder='Saisissez votre NIF...' required />
               </div>
 
               <div className="saisir">
                 <label htmlFor="">Mot de passe</label>
                 <br />
-                <input type="password" name='password' onChange={change} placeholder='Entrer votre mot de passe ***'required/>
+                <input type="password" name='password' onChange={change} placeholder='Entrer votre mot de passe ***' required/>
               </div>
 
               <div className="forget">

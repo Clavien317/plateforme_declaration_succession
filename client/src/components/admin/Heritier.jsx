@@ -7,7 +7,6 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 
 export default function Home() {
-
   const [data, setData] = useState([]);
 
   const listeUser = async () => {

@@ -3,11 +3,12 @@ const Heritier = require("../model/Heritier")
 
 
 const create = async (req, res) => {
-    const { dossierNum, nom, declarationId, datenaiss,relation } = req.body;
+    const { userId,dossierNum, nom, declarationId, datenaiss,relation } = req.body;
   
     try {
       const newHeritier = await Heritier.create({
         nom:nom,
+        userId:userId,
         datenaiss:datenaiss,
         relation: relation,
         declarationId: "j...jkhiuh",
@@ -28,8 +29,8 @@ const list=async(req,res)=>{
 
 const listSpec = async (req, res) => {
     try {
-        const { dossierNum } = req.params;
-        const data = await Heritier.find({ dossierNum });
+        const id = req.params.params;
+        const data = await Heritier.find({ userId:id });
         if (data.length === 0) {
             return res.status(404).json({ message: 'Aucun héritier trouvé pour ce numéro de dossier.' });
         }
