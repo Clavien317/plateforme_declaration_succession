@@ -27,6 +27,19 @@ const list=async(req,res)=>{
     res.json(data)
 }
 
+const listSpec = async (req, res) => {
+    try {
+        const { dossierNum } = req.params;
+        const data = await Actif.find({dossierNum});
+        if (data.length === 0) {
+            return res.status(404).json({ message: 'Aucun actif trouvé pour ce dossierNum.' });
+        }
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
+    }
+  }
+
 const update=async(req,res)=>{
     const id = req.params.id;
     const data = req.body
@@ -64,4 +77,4 @@ const Singledata =async(req,res)=>{
 }
 
 
-module.exports ={create,update,deleted,list,Singledata}
+module.exports ={create,update,deleted,list,listSpec,Singledata}

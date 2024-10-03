@@ -4,36 +4,61 @@ import { MRT_Localization_FR } from "material-react-table/locales/fr";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function ProduitTable() {
-
   const [data, setData] = useState([]);
-  const [totalActif, setTotalActif] = useState(0);
+  const [totalActifGlobal, setTotalActifGlobal] = useState(0);
+  const [actifsParDossier, setActifsParDossier] = useState(0);
+
+  const [totauxParDossier, setTotauxParDossier] = useState({});
+  const [totalGlobalActif, setTotalGlobalActif] = useState(0);
+
+  const calculerTotauxActifs = async () => {
+    try {
+      const declarations = await axios.get("http://localhost:5000/api/v1/declaration/list");
+      const totauxTemp = {};
+      let sommeTotale = 0;
+
+      // Itérer sur chaque déclaration pour récupérer la somme des actifs
+      for (const declaration of declarations.data) {
+        const result = await axios.get(`http://localhost:5000/api/v1/actif/list/${declaration.dossierNum}`);
+        if (Array.isArray(result.data)) {
+          const sommeActifs = result.data.reduce((acc, actif) => acc + (actif.valeur || 0), 0);
+          totauxTemp[declaration.dossierNum] = sommeActifs;
+          sommeTotale += sommeActifs; // Ajouter au total global
+        }
+      }
+
+      setTotauxParDossier(totauxTemp);
+      setTotalGlobalActif(sommeTotale); // Mettre à jour le total global
+      setData(declarations.data); // Mettre à jour les données des déclarations
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données :", error);
+    }
+  };
+
+  useEffect(() => {
+    calculerTotauxActifs();
+  }, []);
 
   const listeDeclaration = async () => {
     try {
       const result = await axios.get("http://localhost:5000/api/v1/declaration/list");
       setData(result.data);
 
+      let totalGlobal = 0;
+      const actifsParDossierTemp = {};
+      setActifsParDossier(actifsParDossierTemp);
+      setTotalActifGlobal(totalGlobal);
     } catch (error) {
       console.error("Erreur lors de la récupération des déclarations :", error);
     }
   };
 
-  const DetailActif = async () =>
-  {
-    const result = await axios.get("http://localhost:5000/api/v1/actif/list");
-      console.log(result.data[0].valeur);
-      setTotalActif(result.data[0].valeur);
-  }
-
   useEffect(() => {
     listeDeclaration();
-
-    DetailActif()
   }, []);
 
   const columns = useMemo(
@@ -54,24 +79,24 @@ export default function ProduitTable() {
         size: 150,
       },
       {
-        accessorKey: "valeur",
+        accessorKey: "sommeActif",
         header: "Somme Actif (Valeur)",
         size: 150,
-        Cell: () => (
+        Cell: ({ row }) => (
           <>
-            {totalActif}
+            {totauxParDossier[row.original.dossierNum] || 0}
           </>
-        )
+        ),
       },
       {
         accessorKey: "droitSuccession",
         header: "Taxes",
         size: 150,
-        Cell: () => (
+        Cell: ({ row }) => (
           <>
-            {totalActif*0.005}
+            {(actifsParDossier[row.original.dossierNum] || 0) * 0.005}
           </>
-        )
+        ),
       },
       {
         accessorKey: "nom_defunt",
@@ -93,7 +118,7 @@ export default function ProduitTable() {
         ),
       },
     ],
-    []
+    [actifsParDossier]
   );
 
   const table = useMaterialReactTable({
@@ -126,12 +151,9 @@ export default function ProduitTable() {
         </ButtonAjout>
       </a>
       <div>
-        {/* Affichage du tableau */}
         <MaterialReactTable table={table} />
-
-        {/* Affichage de la somme totale des actifs */}
         <Box mt={2}>
-          <h3>Total des Actifs : {totalActif} Ariary</h3>
+          <h3>Total des Actifs : {totalActifGlobal} Ariary</h3>
         </Box>
       </div>
     </>
