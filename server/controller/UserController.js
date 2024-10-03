@@ -1,6 +1,7 @@
 const Utilisateur = require("../model/Utilisateurs")
 const bcrypt = require("bcrypt")
 const nodemailer = require("nodemailer")
+const jwt = require("jsonwebtoken")
 
 
 const create = async (req, res) => {
@@ -125,7 +126,6 @@ const Singledata =async(req,res)=>{
 
 const sendEmail = async (req, res) => {
     const id = req.params.id;
-  
     try {
       const utilisateur = await Utilisateur.findById(id);
       if (!utilisateur) {
@@ -161,4 +161,4 @@ const sendEmail = async (req, res) => {
     }
   };
 
-module.exports ={create,update,deleted,list,Singledata,sendEmail}
+module.exports ={create,update,deleted,list,Singledata,sendEmail,verifyJwt,verifier,login}

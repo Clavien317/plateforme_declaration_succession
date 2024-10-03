@@ -1,16 +1,47 @@
 import { useNavigate } from 'react-router-dom';
-import React from 'react'
+import React, { useState } from 'react'
 import { FcGoogle } from "react-icons/fc";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import axios from 'axios';
 
 
 function Login() {
   const router = useNavigate()
+  const [input, setInput] = useState({});
+  const navigate = useNavigate()
+
+  const change=(e)=>{
+        const name = e.target.name;
+        const value = e.target.value
+        setInput(values=>({...values,[name]:value}))
+  }
+
+    const submit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:5000/api/v1/user/login", input);
+            if (response.data.login) {
+                localStorage.setItem("token-succession-user",response.data.token)
+                if(response.data.token){
+                    console.log(input.email);
+                    console.log(response.data.token);
+                    navigate(`/dashboard`); 
+                }
+            }
+            else{
+                alert("Email ou mot de passe invalide");
+            }
+        } catch (error) {
+            alert("Mot de passe incorrect")
+            console.log("Erreur lors de la connexion", error);
+        }
+    }
+
   return (
     <>
       <div className="auth">
         <br />
-        <form action="">
+        <form action="" onSubmit={submit}>
           <div className="back" onClick={()=>router("/")}>
             <IoMdArrowRoundBack />
           </div>
@@ -18,20 +49,19 @@ function Login() {
           <h1 className="text-3xl font-bold text-center mb-4 my-4 text-blue-600">Bienvenue  </h1>
           <p>
             Nous sommes ravis de vous accueillir sur notre plateforme. 
-            {/* Veuillez vous connecter pour accéder à vos informations personnelles et à nos services exclusifs. */}
           </p>
 
           <div className="data">
               <div className="saisir">
                 <label htmlFor="">NIF</label>
                 <br />
-                <input type="text" name='nif' placeholder='Saisissez votre NIF...'required />
+                <input type="text" name='nif' onChange={change} placeholder='Saisissez votre NIF...'required />
               </div>
 
               <div className="saisir">
                 <label htmlFor="">Mot de passe</label>
                 <br />
-                <input type="password" name='password' placeholder='Entrer votre mot de passe ***'required/>
+                <input type="password" name='password' onChange={change} placeholder='Entrer votre mot de passe ***'required/>
               </div>
 
               <div className="forget">

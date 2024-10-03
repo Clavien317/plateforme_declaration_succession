@@ -29,7 +29,7 @@ function Inscrire() {
     setErrorMessage("");
     try {
       await axios.post("http://localhost:5000/api/v1/user/create", input);
-      navigate("/"); // Correction : utilise navigate pour rediriger
+      navigate("/");
     } catch (err) {
       setErrorMessage("Erreur lors de l'inscription. Veuillez réessayer.");
       console.log("Erreur lors de l'inscription de l'utilisateur", err);

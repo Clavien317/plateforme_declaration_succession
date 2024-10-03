@@ -19,7 +19,6 @@ function Declaration() {
       console.log(input);
       
       await axios.post("http://localhost:5000/api/v1/declaration/create",input)
-      // router.push("/pages/admin/")
     } catch (err) {
       console.log("Erreur lors de declaration succession ", err);
     }

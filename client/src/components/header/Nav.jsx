@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IoMdHome } from "react-icons/io";
 import { FaSignInAlt } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa6";
 import { FaQuestion } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 function Nav() {
+
+    const token = localStorage.getItem("token-succession-user")
+    console.log(token);
+
+    const router = useNavigate()
+
+    useEffect(() => {
+        if (!token) {
+            router('/');
+        }
+    }, [token, router]);
+    
   return (
     <>
         <div className="navbars">
