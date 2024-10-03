@@ -71,39 +71,38 @@ const listSpec = async (req, res) => {
   }
 }
 
-const update=async(req,res)=>{
-    const id = req.params.id;
-    const data = req.body
-    if (!id || !data) {
-        return res.status(400).json("Données invalides");
-    }
-
-    try {
-        const updatedUtilisateur = await Utilisateur.findByIdAndUpdate(id, data, { new: true, runValidators: true });
-        if (updatedUtilisateur) {
-            res.json({
-                message: "Utilisateur modifiée avec succès",
-                Utilisateur: updatedUtilisateur
-            })
-        } else {
-            res.status(404).json("ID non trouvé");
-        }
-    } catch (error) 
-    {
-        console.error("Erreur lors de la mise à jour:", error);
-        res.status(500).json("Erreur serveur");
-    }
+const update = async (req, res) => {
+  const { dossierNum } = req.params;  
+  const data = req.body;
+  if (!dossierNum || !data) {
+      return res.status(400).json("Données invalides");
+  }
+  try {
+      const updatedDeclaration = await Declaration.findOneAndUpdate({ dossierNum: dossierNum },data,{ new: true, runValidators: true })
+      if (updatedDeclaration) {
+          res.json({
+              message: "Déclaration modifiée avec succès",
+              declaration: updatedDeclaration
+          });
+      } else {
+          res.status(404).json("Numéro de dossier non trouvé");
+      }
+  } catch (error) {
+      console.error("Erreur lors de la mise à jour:", error);
+      res.status(500).json("Erreur serveur");
+  }
 }
+
 
 const deleted = async (req, res) => {
     const id = req.params.id;
-    await Utilisateur.findByIdAndDelete(id);
-    res.status(200).json({ message: "Utilisateur supprimée avec succès" });
+    await Declaration.findByIdAndDelete(id);
+    res.status(200).json({ message: "Declaration supprimée avec succès" });
 };
 
 const Singledata =async(req,res)=>{
-    const id = req.params.id
-    const data = await Utilisateur.findOne({ _id: id })
+    const {id} = req.params
+    const data = await Declaration.findOne({ dossierNum: id })
     res.json(data)
 }
 

@@ -14,14 +14,6 @@ function Declaration() {
     setInput(values => ({ ...values, [name]: value,dossierNum:900}));
   }
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token-succession-user");
-  //   if (token) {
-  //     const decodedToken = JSON.parse(atob(token.split('.')[1]));
-  //     setIDuser(decodedToken.id);
-  //   }
-  // }, []);
-
   const submit = async (e) => {
     e.preventDefault();
     try{

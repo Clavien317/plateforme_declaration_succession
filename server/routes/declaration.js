@@ -5,7 +5,7 @@ const { createDeclaration, update, deleted, list, Singledata, listSpec } = requi
 
 
 router.post("/create", createDeclaration);
-router.put("/update/:id",update)
+router.put("/update/:dossierNum",update)
 router.delete("/delete/:id",deleted)
 router.get("/list",list)
 router.get("/list/:id_user",listSpec)

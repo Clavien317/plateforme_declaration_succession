@@ -9,47 +9,22 @@ import { Link } from "react-router-dom";
 
 export default function ProduitTable() {
   const [data, setData] = useState([]);
-  const [actifsData, setActifsData] = useState({}); // State pour stocker les actifs par dossier
 
-  const listeDeclaration = async () => {
+
+  const listeActif = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/v1/declaration/list");
+      const result = await axios.get("http://localhost:5000/api/v1/actif/list");
       setData(result.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des déclarations :", error);
     }
   }
 
-  // Fonction pour récupérer les actifs d'un dossier
-  const fetchActifs = async (dossierNum) => {
-    try {
-      const result = await axios.get(`http://localhost:5000/api/v1/actif/list/${dossierNum}`);
-      return result.data; // Retourne les actifs pour un dossier
-    } catch (error) {
-      console.error("Erreur lors de la récupération des actifs :", error);
-      return [];
-    }
-  }
 
   useEffect(() => {
-    listeDeclaration();
+    listeActif();
   }, []);
 
-  useEffect(() => {
-    const fetchAllActifs = async () => {
-      // Récupère les actifs pour chaque dossierNum
-      const actifs = {};
-      for (const row of data) {
-        const actifData = await fetchActifs(row.dossierNum);
-        actifs[row.dossierNum] = actifData.reduce((sum, actif) => sum + parseFloat(actif.valeur), 0);
-      }
-      setActifsData(actifs); // Met à jour l'état des actifs
-    };
-
-    if (data.length > 0) {
-      fetchAllActifs();
-    }
-  }, [data]);
 
   const columns = useMemo(
     () => [
@@ -59,43 +34,23 @@ export default function ProduitTable() {
         size: 150,
       },
       {
-        accessorKey: "titre",
-        header: "Titre de declaration",
+        accessorKey: "biens",
+        header: "Designation du biens",
         size: 200,
       },
       {
-        accessorKey: "lega_cin",
-        header: "CIN",
+        accessorKey: "valeur",
+        header: "Valeur",
         size: 200,
       },
       {
-        accessorKey: "etat",
-        header: "Etat",
+        accessorKey: "description",
+        header: "Description",
         size: 150,
       },
-      // {
-      //   accessorKey: "sommeActif",
-      //   header: "Somme Actif (Valeur)",
-      //   size: 150,
-      //   Cell: ({ row }) => (
-      //     <>
-      //       {actifsData[row.original.dossierNum] || "Chargement..."}
-      //     </>
-      //   ),
-      // },
-      // {
-      //   accessorKey: "droitSuccession",
-      //   header: "Taxes",
-      //   size: 150,
-      //   Cell: ({ row }) => (
-      //     <>
-      //      {actifsData[row.original.dossierNum] ? (actifsData[row.original.dossierNum] * 0.05).toFixed(2) : "Chargement..."}
-      //     </>
-      //   ),
-      // },
       {
-        accessorKey: "nom_defunt",
-        header: "Défunt",
+        accessorKey: "beneficier",
+        header: "Apparient a",
         size: 150,
       },
       {

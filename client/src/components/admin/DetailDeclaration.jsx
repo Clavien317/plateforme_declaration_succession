@@ -1,239 +1,124 @@
-import { Card, CardContent, Typography } from '@mui/material'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
-function DetailDeclaration() {
-    const [heritier,setHeritier] = useState([])
-    const dossierNum = 900
+function Declaration() {
 
+  const dossierNum  = useParams();   
+  const [input, setInput] = useState({});
+  const navigate = useNavigate()
 
-    const listeHeritier = async () => {
-        try {
-          const response = await axios.get(`http://localhost:5000/api/v1/heritier/list/${dossierNum}`);
-          console.log(response.data);
-          setHeritier(response.data);
-        } catch (error) {
-          console.error("Erreur lors de la récupération des héritiers :", error);
-        }
-      };
+  const change = (e) => {
+    const { name, value } = e.target;
+    setInput(values => ({ ...values, [name]: value }));
+  };
 
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:5000/api/v1/declaration/update/${dossierNum.id}`, input);
+      alert('Mise à jour réussie');
+      navigate("/declaration")
+    } catch (err) {
+      console.log("Erreur lors de la mise à jour de la déclaration", err);
+    }
+  };
 
-useEffect(()=>
-{
-    listeHeritier()
-},[])
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/v1/declaration/${dossierNum.id}`);
+      const declaration = response.data;
+      setInput(declaration);
 
+    } catch (err) {
+      console.log("Erreur lors de la récupération des données", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [dossierNum]);
 
   return (
-    <>
-      <form action="">
-        <div className="detail">
-          <h1 className='text-2xl text-black font-bold mx-4'>Modification de déclaration</h1>
+    <div>
+      <form action="" method="post" className='demande' onSubmit={submit}>
+        <h1 className='text-2xl text-black font-bold mx-3'>Détail de la déclaration</h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Numero de dossier</h2>
-              <input 
-                type="text" 
-                defaultValue="900" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Ce dossier est classé au numéro</label>
+          <br />
+          <input type="text" name='dossierNum' onChange={change} value={input.dossierNum || ''} />
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Contact legataire</h2>
-              <input 
-                type="text" 
-                defaultValue="+261329092922" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label>Entête de déclaration ou titre</label>
+          <br />
+          <input type="text" name='titre' onChange={change} value={input.titre} />
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Date de dépôt du dossier</h2>
-              <input 
-                type="date" 
-                defaultValue="2024-09-12" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Description testament</label>
+          <br />
+          <input type="text" name='description_test' onChange={change} value={input.description_test} />
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Nom du legataire</h2>
-              <input 
-                type="text" 
-                defaultValue="Rakoto" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Précisez ici la valeur s'il y a de dette (total sommes)</label>
+          <br />
+          <input type="text" name='dette' onChange={change} value={input.dette} />
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Total actif</h2>
-              <input 
-                type="number" 
-                defaultValue="5000" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Description de dette</label>
+          <br />
+          <textarea name="detail_dette" onChange={change} value={input.detail_dette}></textarea>
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Total passif</h2>
-              <input 
-                type="number" 
-                defaultValue="0" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <h1 className='text-2xl text-black font-bold mx-3'>Détails du défunt</h1>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Raison du passif</h2>
-              <textarea 
-                defaultValue="........." 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Nom du défunt <span>*</span></label>
+          <br />
+          <input type="text" name='nom_defunt' onChange={change} value={input.nom_defunt} />
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Taxes</h2>
-              <input 
-                type="number" 
-                defaultValue="800" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Date de naissance du défunt <span>*</span></label>
+          <br />
+          <input type="date" name='naiss_defunt' onChange={change} value={input.naiss_defunt} />
+        </div>
 
-            <div className="w-full col-span-4 mx-5">
-              <h1 className="text-2xl font-bold mt-4">Biens ou donation</h1>
-              <hr className='h-1 w-36 bg-black' />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Responsabilité du défunt <span>*</span></label>
+          <br />
+          <input type="text" name='respo_defunt' onChange={change} value={input.respo_defunt} />
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Designation</h2>
-              <input 
-                type="text" 
-                defaultValue="Voiture" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Date de décès</label>
+          <br />
+          <input type="date" name='dece_defunt' onChange={change} value={input.dece_defunt} />
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Description</h2>
-              <textarea 
-                defaultValue="......" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Lien avec vous <span>*</span></label>
+          <br />
+          <input type="text" name='lien_defunt' onChange={change} value={input.lien_defunt} />
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Valeur (montant)</h2>
-              <input 
-                type="number" 
-                defaultValue="6000" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
+        <div className="champs">
+          <label htmlFor="">Votre CIN <span>*</span></label>
+          <br />
+          <input type="text" name='lega_cin' onChange={change} value={input.lega_cin} />
+        </div>
 
-            <div className="bg-white p-4 shadow rounded">
-                <h2 className="text-xl">Propriétaire</h2>
-                <select name="beneficier" className="w-full border border-gray-300 rounded px-2 py-1">
-                    {heritier.length > 0 ? (
-                    heritier.map((h) => (
-                        <option key={h._id} value={h.nom}>
-                        {h.nom}
-                        </option>
-                    ))
-                    ) : (
-                    <option value="">Aucun héritier trouvé</option>
-                    )}
-                </select>
-            </div>
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Designation</h2>
-              <input 
-                type="text" 
-                defaultValue="Maison" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
-
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Description</h2>
-              <textarea 
-                defaultValue="......" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
-
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-xl">Valeur (montant)</h2>
-              <input 
-                type="number" 
-                defaultValue="6900" 
-                className="w-full border border-gray-300 rounded px-2 py-1"
-              />
-            </div>
-
-            <div className="bg-white p-4 shadow rounded">
-                <h2 className="text-xl">Propriétaire</h2>
-                <select name="beneficier" className="w-full border border-gray-300 rounded px-2 py-1">
-                    {heritier.length > 0 ? (
-                    heritier.map((h) => (
-                        <option key={h._id} value={h.nom}>
-                        {h.nom}
-                        </option>
-                    ))
-                    ) : (
-                    <option value="">Aucun héritier trouvé</option>
-                    )}
-                </select>
-            </div>
-          </div>
-
-          {/* Héritier */}
-            <div className="heritier-grid">
-                <h1 className="text-2xl font-bold mx-7">Héritier</h1>
-                <hr className='h-1 w-9 bg-black mb-6 mx-7' />
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {/* Héritier 1 */}
-                    {heritier.length > 0 ? (
-                        heritier.map((heritier) => (
-                        <div key={heritier._id} className="bg-white p-4 shadow rounded">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
-                            <input
-                            type="text"
-                            value={heritier.nom || "Non défini"}
-                            className="text-xl border-0 focus:ring-0 w-full"
-                            readOnly
-                            />
-                            
-                            <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Lien parental</label>
-                            <input
-                            type="text"
-                            value={heritier.relation || "Non défini"}
-                            className="text-xl border-0 focus:ring-0 w-full"
-                            readOnly
-                            />
-
-                            <label className="block text-gray-700 text-sm font-bold mt-4 mb-2">Date de naissance</label>
-                            <input
-                            type="text"
-                            value={heritier.datenaiss || "Non défini"}
-                            className="text-xl border-0 focus:ring-0 w-full"
-                            readOnly
-                            />
-                        </div>
-                        ))
-                    ) : (
-                        <p>Aucun héritier trouvé pour ce numéro de dossier.</p>
-                    )}
-
-                </div>
-            </div>
-          <button className='btn-update'>Modifier</button>
+        <br />
+        <div className="champs">
+          <button type="submit">Modifier</button>
         </div>
       </form>
-    </>
-  )
+    </div>
+  );
 }
 
-export default DetailDeclaration
+export default Declaration;

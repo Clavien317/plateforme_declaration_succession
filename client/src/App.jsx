@@ -9,6 +9,7 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Faq from './pages/Faq';
 import FormDeclaration from './components/Form/Declaration';
+import ListeActif from './pages/dashboard/Actif'
 import Dashboard from './pages/dashboard/Dashboard';
 import Profil from './pages/dashboard/Profil';
 import MesDeclaration from './pages/dashboard/MesDeclaration';
@@ -18,6 +19,9 @@ import Testament from './components/admin/liste/Testament';
 import Detail from './pages/dashboard/Detail';
 import Suivi from './pages/dashboard/Suivi';
 import UserUpdate from './components/admin/update/UserUpdate';
+
+
+
 
 function App() {
   return (
@@ -37,6 +41,8 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/declaration/brouillon' element={<Brouillon />} />
         <Route path='/declaration/:id' element={ <Detail />} />
+        <Route path='/declaration/actif' element={ <ListeActif />} />
+
 
 
         {/* Page admin */}
