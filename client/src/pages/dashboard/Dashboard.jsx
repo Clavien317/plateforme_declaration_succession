@@ -40,13 +40,12 @@ function Dashboard() {
         somme +=response.data[i].valeur
       }
       setValeur(somme)
-
       setActif(response.data);
 
     } catch (error) {
       console.error('Erreur lors de la récupération du actif utilisateur', error);
     }
-  };
+  }
 
   const declaration = async () => {
     try {

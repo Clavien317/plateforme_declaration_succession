@@ -9,16 +9,41 @@ import { Link } from "react-router-dom";
 
 export default function ProduitTable() {
   const [data, setData] = useState([]);
-  const [valeurs, setValeurs] = useState({});  // Stocker les valeurs de chaque dossier
+  const [valeurs, setValeurs] = useState({});
+  const [IdUser, setIdUser] = useState("");
 
-  const listeDeclaration = async () => {
+
+  useEffect(() => {
+    const token = localStorage.getItem("token-succession-user");
+    if (token) {
+      try {
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        setIdUser(decodedToken.id);
+      } catch (error) {
+        console.error("Erreur lors de la décodification du token :", error);
+      }
+    }
+  }, []);
+
+
+
+
+  const listeDeclaration = async (idUser) => {
     try {
-      const result = await axios.get("http://localhost:5000/api/v1/declaration/list");
-      setData(result.data);
+      const response = await axios.get(`http://localhost:5000/api/v1/declaration/list/${idUser}`);
+      setData(response.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des déclarations :", error);
     }
   };
+
+  // Mettre à jour les valeurs des actifs pour chaque déclaration
+  useEffect(() => {
+    if (IdUser) {
+      listeDeclaration(IdUser);
+    }
+  }, [IdUser]);
+
 
   const ListeActif = async (dossierNum) => {
     try {
@@ -33,7 +58,7 @@ export default function ProduitTable() {
       return somme;
     } catch (error) {
       console.error('Erreur lors de la récupération du actif utilisateur', error);
-      return 0; // En cas d'erreur, retourner 0
+      return 0;
     }
   };
 

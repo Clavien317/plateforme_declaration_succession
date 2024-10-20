@@ -47,9 +47,9 @@ export default function Profile() {
   };
 
 
-  const declaration = async () => {
+  const declaration = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/v1/declaration/list/${IDuser}`);
+      const response = await axios.get(`http://localhost:5000/api/v1/declaration/list/${id}`);
       setDeclaration(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des déclarations', error);
@@ -97,12 +97,12 @@ export default function Profile() {
     return `${jour} ${moisNom} ${annee}`;
   }
 
-  useEffect(()=>
-  {
+  useEffect(() => {
     profilUser()
-    declaration()
-  },[])
-
+    if (IDuser) {
+      declaration(IDuser);
+    }
+  }, [IDuser]);
 
   return (
     <>

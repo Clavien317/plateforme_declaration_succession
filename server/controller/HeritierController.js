@@ -29,16 +29,16 @@ const list=async(req,res)=>{
 
 const listSpec = async (req, res) => {
     try {
-        const id = req.params.params;
+        const id = req.params.id;
         const data = await Heritier.find({ userId:id });
-        if (data.length === 0) {
-            return res.status(404).json({ message: 'Aucun héritier trouvé pour ce numéro de dossier.' });
+        if (data.length === 0){
+            return res.status(404).json({ message: 'Aucun heritier trouvé pour ce idUser.' });
         }
         res.status(200).json(data)
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
-}
+  }
 
 const update=async(req,res)=>{
     const id = req.params.id;

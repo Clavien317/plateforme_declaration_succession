@@ -8,6 +8,8 @@ function Declaration() {
   const [input, setInput] = useState({});
   const [IDuser, setIDuser] = useState('');
   const [Num, setNum] = useState('');
+  const router = useNavigate()
+  const [CIN,setCIN] = useState('')
 
   useEffect(() => {
     const token = localStorage.getItem("token-succession-user");
@@ -17,8 +19,19 @@ function Declaration() {
     }
     const num = Math.floor(100 + Math.random() * 99999);
     setNum(num) 
+
+    if (IDuser) {
+      axios.get(`http://localhost:5000/api/v1/user/${IDuser}`)
+        .then((response) => {
+          const userData = response.data;
+          setCIN(userData.cin);
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la récupération des données utilisateur', error);
+        });
+    }
     
-  }, []);
+  }, [IDuser]);
 
   const change = (e) => {
     const { name, value } = e.target;
@@ -30,6 +43,7 @@ function Declaration() {
     try{      
       await axios.post("http://localhost:5000/api/v1/declaration/create",input)
       alert("Cree avec success")
+      router("/declaration")
     } catch (err) {
       console.log("Erreur lors de declaration succession ", err);
     }
@@ -105,7 +119,7 @@ function Declaration() {
             <div className="champs">
                 <label htmlFor="">Votre CIN <span>*</span></label>
                 <br />
-                <input type="text" name='lega_cin' onChange={change} />
+                <input type="text" name='lega_cin' value={CIN} onChange={change} readOnly/>
             </div>
 
           <h1 className='text-2xl text-black font-bold mx-3'>Bénéficier</h1>

@@ -20,7 +20,7 @@ export default function HeritierTable() {
     }
   }, []);
 
-  const listeHeritier = async () => {
+  const listeHeritier = async (IDuser) => {
     try {
       const result = await axios.get(`http://localhost:5000/api/v1/heritier/list/${IDuser}`);
       setData(result.data);
@@ -30,8 +30,10 @@ export default function HeritierTable() {
   };
 
   useEffect(() => {
-    listeHeritier();
-  }, []);
+    if (IDuser) {
+      listeHeritier(IDuser);
+    }
+  }, [IDuser]);
 
   const handleOpenModal = (heritier) => {
     setSelectedHeritier(heritier);  // Remplir les informations de l'héritier sélectionné

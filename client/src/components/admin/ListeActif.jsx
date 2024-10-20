@@ -21,9 +21,9 @@ export default function ProduitTable() {
     }
   }, []);
 
-  const listeActif = async () => {
+  const listeActif = async (id) => {
     try {
-      const result = await axios.get(`http://localhost:5000/api/v1/actif/list/${IDuser}`);
+      const result = await axios.get(`http://localhost:5000/api/v1/actif/list/${id}`);
       setData(result.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des déclarations :", error);
@@ -31,8 +31,10 @@ export default function ProduitTable() {
   };
 
   useEffect(() => {
-    listeActif();
-  }, []);
+    if (IDuser) {
+      listeActif(IDuser);
+    }
+  }, [IDuser]);
 
   const handleOpenModal = (actif) => {
     setSelectedActif(actif);  // Remplir l'actif sélectionné
