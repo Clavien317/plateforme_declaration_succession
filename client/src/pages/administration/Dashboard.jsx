@@ -126,7 +126,7 @@ function Dashboard() {
             </Card>
             <Card sx={{ padding: 2, marginBottom: 2 }}>
               <Typography variant="body1">
-                Nouveau utilisateur ajouté avec l'ID: 66fee3eea9d385f2ac99a55b.
+                Nouveau utilisateur ajouté avec l'ID: 66fee3eea9d385f2ac99a562.
               </Typography>
             </Card>
             <Card sx={{ padding: 2 }}>

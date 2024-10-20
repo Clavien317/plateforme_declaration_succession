@@ -35,7 +35,7 @@ function Declaration() {
 
   const change = (e) => {
     const { name, value } = e.target;
-    setInput(values => ({ ...values, [name]: value,dossierNum:Num,userId:IDuser}));
+    setInput(values => ({ ...values, [name]: value,dossierNum:Num,userId:IDuser,lega_cin:CIN}));
   }
 
   const submit = async (e) => {

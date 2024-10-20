@@ -5,9 +5,8 @@ import axios from 'axios';
 function Suivi() {
   const [declarations, setDeclarations] = useState([]);
   const [IDuser, setIDuser] = useState('');
-  const [valeurs, setValeurs] = useState({});  // Stocker les valeurs de chaque dossier
+  const [valeurs, setValeurs] = useState({});
 
-  // Récupérer l'ID utilisateur depuis le token
   useEffect(() => {
     const token = localStorage.getItem("token-succession-user");
     if (token) {
@@ -16,12 +15,10 @@ function Suivi() {
     }
   }, []);
 
-  // Fonction pour récupérer la liste des actifs d'un dossier
   const ListeActif = async (dossierNum) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/v1/actif/lister/${dossierNum}`);
       console.log("Liste actif : ", response.data);
-      
       let somme = 0;
       response.data.forEach((actif) => {
         console.log("Valeur:", actif.valeur);
@@ -30,11 +27,10 @@ function Suivi() {
       return somme-somme*0.05;
     } catch (error) {
       console.error('Erreur lors de la récupération du actif utilisateur', error);
-      return 0; // En cas d'erreur, retourner 0
+      return 0;
     }
   };
 
-  // Fonction pour récupérer la liste des déclarations
   const listeDeclaration = async (idUser) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/v1/declaration/list/${idUser}`);
@@ -44,7 +40,6 @@ function Suivi() {
     }
   };
 
-  // Mettre à jour les valeurs des actifs pour chaque déclaration
   useEffect(() => {
     if (IDuser) {
       listeDeclaration(IDuser);

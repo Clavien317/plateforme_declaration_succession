@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Presentation() {
+
+    const navigate = useNavigate()
 
   return (
     <div>
@@ -19,7 +22,7 @@ function Presentation() {
                         Nos experts sont à votre disposition pour vous fournir des conseils personnalisés, adaptés à vos besoins et à votre situation.
                         Profitez d'une assistance complète et d'un accompagnement professionnel pour une transmission sereine de votre patrimoine.
                     </p>
-                    <button className="btn-primary mt-4">En savoir plus</button>
+                    <button className="btn-primary mt-4" onClick={()=>navigate("/assistant")}>En savoir plus</button>
                 </div>
             </div>
         </div>
@@ -97,7 +100,7 @@ function Presentation() {
                         <li>Planifiez un rendez-vous avec un de nos experts pour un accompagnement personnalisé.</li>
                     </ul>
                 </p> 
-                <button className="btn-primary">En savoir plus</button>
+                <button className="btn-primary" onClick={()=>navigate("/faq")}>En savoir plus</button>
             </div>
             <div className="image">
                 <img src="/Full-Stack-Developer-1.webp" alt="Développeur Full-Stack" />
